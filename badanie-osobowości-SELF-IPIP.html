@@ -1,0 +1,2755 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: grey;
+            color: white;
+            font-family: "Times New Roman", Times, serif;
+            outline: none;
+            height: 100%;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            height: 100%
+        }
+
+        h1 {
+            text-align: center;
+            text-shadow: 3px 3px 5px #3d3d3d, 5px 5px 10px #898989;
+            font-size: 3.6vw;
+            width: 90%;
+            margin: auto;
+            font-family: "Times New Roman", Times, serif;
+            position: fixed;
+            top: 10%;
+            right: 5%;
+        }
+
+        p {
+            text-align: center;
+            font-size: 2.5vw;
+            width: 100%;
+        }
+
+        .button_m {
+            display: block;
+            border-radius: 4px;
+            background-color: #999999;
+            border: 1px solid #707070;
+            color: white;
+            text-align: center;
+            font-size: 2.6vw;
+            text-shadow: 2px 3px 4px #3d3d3d;
+            padding: 8% 8%;
+            width: 100%;
+            transition: all 0.5s;
+            font-family: Times New Roman;
+            outline: none;
+            float: none;
+            cursor: pointer;
+            margin: 3%;
+            style: vertical-align: middle;
+            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.19), 0 10px 20px 0 rgba(0, 0, 0, 0.49);
+        }
+
+        .button_m span {
+            cursor: pointer;
+            display: block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button_m span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button_m:hover span {
+            padding-right: 25px;
+        }
+
+        .button_m:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+
+        .button1 {
+            margin: 0.2%;
+            width: 15%;
+            display: inline-block;
+            border: 1px solid #707070;
+            padding: 1% 1%;
+            background-color: grey;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-family: Helvetica;
+            font-size: 1vw;
+            outline: none;
+            float: none;
+            cursor: pointer;
+            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .button1:active, .button2:active {
+            transform: translateY(2px);
+        }
+
+        button:not(:last-child) {
+            border-right: none; /* Prevent double borders */
+        }
+
+        button:hover {
+            background-color: #AEAEAE;
+        }
+
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 1.5%;
+            border: 1px solid #ccc;
+            border-radius: 0.5%;
+            resize: vertical;
+        }
+
+        label {
+            padding: 1% 1% 1% 0;
+            display: inline-block;
+        }
+
+
+        .sub {
+            background-color: #AEAEAE;
+            color: white;
+            padding: 1% 2%;
+            border: none;
+            border-radius: 0.5%;
+            cursor: pointer;
+            float: right;
+        }
+
+        .sub:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 0.5%;
+            background-color: #f2f2f2;
+            padding: 2%;
+            color: black;
+            width: 70%;
+            margin: auto;
+            position: fixed;
+            top: 20%;
+            right: 15%
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 1%;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 1%;
+        }
+
+        .col-100 {
+            float: left;
+            width: 100%;
+            margin-top: 1%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, .sub {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+
+        #line_div {
+            width: 99%;
+            background-color: grey;
+            position: fixed;
+            bottom: 3%;
+            border: 1.2px groove #AEAEAE;
+            border-style: inset;
+            border-radius: 4px;
+        }
+
+        #line {
+            width: 1%;
+            height: 1.2vw;
+            background-color: #999999;
+        }
+
+        #6a866a
+        #8c8c8c
+        #ddd
+    </style>
+</head>
+
+<body>
+
+<h1 id="naglowek">Badanie czasowników języka polskiego w zakresie opisów osobowości</h1>
+
+<div id="menu_buttons" style="font-size: 4vw; position: fixed; bottom: 20%; width: 20%; right: 41%;">
+    <button class="button_m" id="button_m1" onClick="button_m1func();"><span>Część 1   </span></
+    >
+    <button class="button_m" id="button_m2" onClick="button_m2func();"><span>Część 2   </span></
+    >
+</div>
+
+
+<div id="formularz" class="container">
+
+    <div class="row">
+        <div class="col-25">
+            <label for="fname">Imię:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="fname" name="firstname" placeholder="Twoje imię">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="sex">Płeć:</label>
+        </div>
+        <div class="col-75">
+            <select id="sex" name="sex">
+                <option value="Kobieta">Kobieta</option>
+                <option value="Mężczyzna">Mężczyzna</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="age">Wiek:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="age" name="age" placeholder="Twój wiek w latach">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="zamieszkanie">Miejsce zamieszkania:</label>
+        </div>
+        <div class="col-75">
+            <select id="zamieszkanie" name="zamieszkanie">
+                <option value="Wieś">Wieś</option>
+                <option value="Małe miasto">Małe miasto (do 20 tys. mieszkańców)</option>
+                <option value="Średnie miasto">Średnie miasto (od 20 do 100 tys. mieszkańców)</option>
+                <option value="Duże miasto">Duże miasto (powyżej 100 tys. mieszkańców)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="kierunek">Kierunek studiów:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="kierunek" name="kierunek" placeholder="Twój kierunek studiów lub ukończona szkoła">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="rok_studiow">Rok studiów:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="rok_studiow" name="rok_studiow"
+                   placeholder="Twój rok studiów (licząc studia II stopnia jako rok 4 i 5)">
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz" onClick="submit_func();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<div id="formularz2" class="container">
+
+    <div class="row">
+        <div class="col-25">
+            <label for="partner">Czy masz stałego partnera/partnerkę?</label>
+        </div>
+        <div class="col-75">
+            <select id="partner" name="partner">
+                <option value="Tak">Tak</option>
+                <option value="Nie">Nie</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="papierosy">Ile papierosów dziennie wypalasz?</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="papierosy" name="papierosy"
+                   placeholder="Wpisz liczbę. Jeżeli nie palisz, proszę wpisać „0”">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="alkohol">Średnio ile razy w tygodniu pijesz alkohol?</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="alkohol" name="alkohol"
+                   placeholder="Wpisz liczbę. Jeżeli nie pijesz alkoholu, proszę wpisać „0”">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="wolontariat">Czy udzielasz się społecznie /np. członkostwo w organizacji, wolontariat/?</label>
+        </div>
+        <div class="col-75">
+            <select id="wolontariat" name="wolontariat">
+                <option value="Tak">Tak</option>
+                <option value="Nie">Nie</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz2" onClick="submit_func2();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<div id="formularz3" class="container">
+
+    <div class="row">
+        <div class="col-75">
+            <label for="ogladanie_instr">Ile średnio czasu dziennie poświęcasz na:
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-75">
+            <label for="ogladanie">- oglądanie filmów/seriali w TV lub Internecie (np. na Netflixie lub HBO)?</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="ogladanie" name="ogladanie" placeholder="proszę wpisać liczbę godzin dziennie">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-75">
+            <label for="gry">- grę w gry (na komputerze, komórce, konsoli itd.)</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="gry" name="gry" placeholder="proszę wpisać liczbę godzin dziennie">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-75">
+            <label for="socialmedia">- korzystanie z mediów społecznościowych</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="socialmedia" name="socialmedia" placeholder="proszę wpisać liczbę godzin dziennie">
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz3" onClick="submit_func3();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<div id="formularz4" class="container">
+
+    <div class="row">
+        <div class="col-75">
+            <label for="sport">Ile czasu tygodniowo poświęcasz na sport?</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="sport" name="sport" placeholder="proszę wpisać liczbę godzin tygodniowo">
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz4" onClick="submit_func4();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<div id="formularz5" class="container">
+
+    <div class="row">
+        <div class="col-75">
+            <label for="zadowolenie_instr">Proszę ocenić stopień swojego zadowolenia z życia:</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-100">
+            <label>zdecydowanie niezadowolona/y</label>
+            <input type="radio" name="zadowolenie" value="1">1
+            <input type="radio" name="zadowolenie" value="2">2
+            <input type="radio" name="zadowolenie" value="3">3
+            <input type="radio" name="zadowolenie" value="4">4
+            <input type="radio" name="zadowolenie" value="5">5
+            <input type="radio" name="zadowolenie" value="6">6
+            <input type="radio" name="zadowolenie" value="7">7
+            <input type="radio" name="zadowolenie" value="8">8
+            <input type="radio" name="zadowolenie" value="9">9
+            <input type="radio" name="zadowolenie" value="10">10
+            <label>zdedydowanie zadowolona/y</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz5" onClick="submit_func5();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<div id="formularz6" class="container">
+
+    <div class="row">
+        <div class="col-75">
+            <label for="matura">Jaki uzyskałeś wynik na maturze z przedmiotów podstawowych?</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="matura_jp">Język polski:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="matura_jp" name="matura_jp" placeholder="tu wpisz liczbę %">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="matura_jo">Język obcy:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="matura_jo" name="matura_jo" placeholder="tu wpisz liczbę %">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="matura_mat">Matematyka:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="matura_mat" name="matura_mat" placeholder="tu wpisz liczbę %">
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz6" onClick="submit_func6();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<div id="formularz7" class="container">
+
+    <div class="row">
+        <div class="col-75">
+            <label for="bmi">Proszę o podanie informacji na temat Twojej wagi oraz wzrostu:</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="waga">Waga:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="waga" name="waga" placeholder="wpisz liczbę kg">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-25">
+            <label for="wzrost">Wzrost:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="wzrost" name="wzrost" placeholder="wpisz liczbę cm">
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="sub" id="zatwierdz7" onClick="submit_func7();">Zatwierdź</
+        >
+    </div>
+
+</div>
+
+
+<p id="instrukcja"
+   style="width: 90%; font-size:2.8vw; text-align: center; right: 5%; position: fixed; top: 10%; text-shadow: 1px 1px 8px #3d3d3d;"></p>
+
+<p id="demo" style="font-size: 3vw; position: fixed; top: 35%; text-shadow: 1px 1px 8px #3d3d3d;"></p>
+
+
+<div style="text-align: center; position: fixed; bottom: 6%; width: 20%; right: 40%;">
+
+    <a id="zapis" class="button1" onClick="zapis_koncowy();"
+       style="width: 100%; background-color: #999999; box-shadow: 0 2px 10px 0 rgba(0,0,0,0.19), 0 10px 20px 0 rgba(0,0,0,0.49);  border-radius: 4px; font-family: Times New Roman; font-size: 1.5vw;">Kliknij
+        tutaj,<br/>żeby zapisać wyniki</a>
+
+</div>
+
+<div style="text-align: center; position: fixed; bottom: 6%; width: 20%; right: 40%;">
+
+    <a id="zapis_test" class="button1" onClick="myFunctionTEST();"
+       style="width: 100%; background-color: #999999; box-shadow: 0 2px 10px 0 rgba(0,0,0,0.19), 0 10px 20px 0 rgba(0,0,0,0.49);  border-radius: 4px; font-family: Times New Roman; font-size: 1.5vw;">Kliknij
+        tutaj,<br/>żeby zapisać wyniki</a>
+
+</div>
+
+
+<div id="formularz_test" style="text-align: center; position: fixed; bottom: 3%; width: 20%; right: 40%;">
+
+    <div class="row">
+        <div class="col-25">
+            <label for="kod">KOD:</label>
+        </div>
+        <div class="col-75">
+            <input type="text" id="kod" name="kod" placeholder="podaj kod z pliku">
+        </div>
+    </div>
+    <div class="row">
+        <button class="sub" id="zatwierdz_test" onClick="submit_test();">Zatwierdź</
+        >
+    </div>
+
+
+</div>
+
+
+<div id="buttons" style="position: fixed; bottom: 18%; right: 5%; text-align: center; width: 90%">
+    <button class="button1" id="button" onClick="myFunction1();">1 - Bardzo nietrafne</
+    >
+    <button class="button1" id="button2" onClick="myFunction2();">2 - Nietrafne</
+    >
+    <button class="button1" id="button3" onClick="myFunction3();">3 - Raczej nietrafne</
+    >
+    <button class="button1" id="button4" onClick="myFunction4();">4 - Raczej trafne</
+    >
+    <button class="button1" id="button5" onClick="myFunction5();">5 - Trafne</
+    >
+    <button class="button1" id="button6" onClick="myFunction6();">6 - Bardzo trafne</
+    >
+</div>
+
+<div id="buttons2" style="position: fixed; bottom: 18%; right: 5%; text-align: center; width: 90%">
+    <button class="button1" id="button11" onClick="myFunction11();" style="hight: 15%"
+    "width: 12%; margin: 0.1;">Całkowicie nietrafne
+</
+>
+<button class="button1" id="button12" onClick="myFunction12();" style="hight: 15%"
+"width: 12%; margin: 0.1;">Raczej nietrafne<br/></
+>
+<button class="button1" id="button13" onClick="myFunction13();" style="hight: 15%"
+"width: 12%; margin: 0.1;">Trochę tak, trochę nie
+</>
+<button class="button1" id="button14" onClick="myFunction14();"
+        style="hight: 15%" "width: 12%; margin: 0.1;">Raczej trafne<br/> </>
+<button class="button1" id="button15" onClick="myFunction15();"
+        style="hight: 15%" "width: 12%; margin: 0.1;">Całkowicie trafne</>
+</div>
+
+
+<div id="line_div">
+    <div id="line"></div>
+</div>
+
+<p id="spacja" style="position: fixed;  bottom: 6%;  right: 15%;  width: 70%; font-size: 2vw;">Naciśnij spację, żeby
+    kontynuować</p>
+
+
+<script>
+  //START Zdania
+  var lista1 = [
+    "Zdanie 0",
+    "Plansza kontrolna, naciśnij klawisz n.", "Plansza kontrolna, naciśnij klawisz n.", "Plansza kontrolna, naciśnij klawisz n.", "Plansza kontrolna, naciśnij klawisz n.", "Plansza kontrolna, wybierz odpowiedź nietrafne.", "Plansza kontrolna, wybierz odpowiedź raczej nietrafne.", "Plansza kontrolna, wybierz odpowiedź bardzo nietrafne.", "Plansza kontrolna, wybierz odpowiedź trafne.", "Plansza kontrolna, wybierz odpowiedź raczej trafne.", "Plansza kontrolna, wybierz odpowiedź bardzo trafne.",
+    "Jestem kimś, kto się ekscytuje",
+    "Jestem kimś, kto przestrzega zasad",
+    "Jestem kimś, kto potrafi rozkochać",
+    "Jestem kimś, kto coś ogarnia",
+    "Jestem kimś, kto współpracuje",
+    "Jestem kimś, kto rozwesela innych",
+    "Jestem kimś, kto ściąga od innych",
+    "Jestem kimś, kto coś rozpowiada",
+    "Jestem kimś, kto się kogoś radzi",
+    "Jestem kimś, kto kłamie",
+    "Jestem kimś, kto potrafi pocieszać",
+    "Jestem kimś, kto eksperymentuje",
+    "Jestem kimś, kto coś rozważa",
+    "Jestem kimś, kto się upiera",
+    "Jestem kimś, kto się uspołecznia",
+    "Jestem kimś, kto płodzi coś nowego",
+    "Jestem kimś, kto chytrzy",
+    "Jestem kimś, kto się obwinia",
+    "Jestem kimś, kto gasi innych",
+    "Jestem kimś, kto kradnie",
+    "Jestem kimś, kto się kontroluje",
+    "Jestem kimś, kto filozofuje",
+    "Jestem kimś, kto kręci",
+    "Jestem kimś, kto odpływa myślami",
+    "Jestem kimś, kto coś podkrada",
+    "Jestem kimś, kto potakuje",
+    "Jestem kimś, kto lubi popróżnować",
+    "Jestem kimś, kto się emocjonuje",
+    "Jestem kimś, kto się karci",
+    "Jestem kimś, kto zagania do pracy",
+    "Jestem kimś, kto prosi",
+    "Jestem kimś, kto potrafi ochłonąć",
+    "Jestem kimś, kto coś zagrywa",
+    "Jestem kimś, kto się panoszy",
+    "Jestem kimś, kto coś rozpamiętuje",
+    "Jestem kimś, kto lizusuje",
+    "Jestem kimś, kto coś uzasadnia",
+    "Jestem kimś, kto ciągle nadaje",
+    "Jestem kimś, kto naprawia krzywdę",
+    "Jestem kimś, kto coś spłyca",
+    "Jestem kimś, kto tyranizuje innych",
+    "Jestem kimś, kto dywaguje",
+    "Jestem kimś, kto kogoś parodiuje",
+    "Jestem kimś, kto dezinformuje",
+    "Jestem kimś, kto aspiruje",
+    "Jestem kimś, kto się sprzecza",
+    "Jestem kimś, kto rozgaduje sekrety",
+    "Jestem kimś, kto wciska coś innym",
+    "Jestem kimś, kto gardzi",
+    "Jestem kimś, kto teatralizuje",
+    "Jestem kimś, kto daruje winy",
+    "Jestem kimś, kto się odurza",
+    "Jestem kimś, kto lubi coś poustalać",
+    "Jestem kimś, kto się rozbestwia",
+    "Jestem kimś, kto się okłamuje",
+    "Jestem kimś, kto się spóźnia",
+    "Jestem kimś, kto sępi",
+    "Jestem kimś, kto decyduje",
+    "Jestem kimś, kto odbębnia pracę",
+    "Jestem kimś, kto się przyznaje",
+    "Jestem kimś, kto się rozjusza",
+    "Jestem kimś, kto się obciąża",
+    "Jestem kimś, kto coś precyzuje",
+    "Jestem kimś, kto ocenia innych",
+    "Jestem kimś, kto potrafi kogoś opitolić",
+    "Jestem kimś, kto zwleka",
+    "Jestem kimś, kto kogoś adoruje",
+    "Jestem kimś, kto się czegoś obawia",
+    "Jestem kimś, kto się gdzieś wciska",
+    "Jestem kimś, kto pokrzepia innych",
+    "Jestem kimś, kto się przymila",
+    "Jestem kimś, kto się z kimś ściera",
+    "Jestem kimś, kto kogoś przytula",
+    "Jestem kimś, kto panikuje",
+    "Jestem kimś, kto sknerzy",
+    "Jestem kimś, kto współdziała",
+    "Jestem kimś, kto komuś truje",
+    "Jestem kimś, kto dokucza innym",
+    "Jestem kimś, kto docieka",
+    "Jestem kimś, kto coś trwoni",
+    "Jestem kimś, kto coś perswaduje",
+    "Jestem kimś, kto się rozpuszcza",
+    "Jestem kimś, kto się z kimś cacka",
+    "Jestem kimś, kto się z kimś naparza",
+    "Jestem kimś, kto przekonuje innych",
+    "Jestem kimś, kto baczy na innych",
+    "Jestem kimś, kto odszczekuje",
+    "Jestem kimś, kto głupieje",
+    "Jestem kimś, kto potrafi poczekać",
+    "Jestem kimś, kto kogoś spławia",
+    "Jestem kimś, kto się wybiela",
+    "Jestem kimś, kto się mozoli",
+    "Jestem kimś, kto podburza innych",
+    "Jestem kimś, kto potrafi nazmyślać",
+    "Jestem kimś, kto kogoś izoluje",
+    "Jestem kimś, kto się doucza",
+    "Jestem kimś, kto coś klaruje",
+    "Jestem kimś, kto kaprysi",
+    "Jestem kimś, kto się zemści",
+    "Jestem kimś, kto kogoś używa",
+    "Jestem kimś, kto kogoś porzuca",
+    "Jestem kimś, kto rządzi innymi",
+    "Jestem kimś, kto się wycisza",
+    "Jestem kimś, kto potrafi poskąpić",
+    "Jestem kimś, kto pogrywa z innymi",
+    "Jestem kimś, kto coś wynajduje",
+    "Jestem kimś, kto grzmi na innych",
+    "Jestem kimś, kto rozkazuje innym",
+    "Jestem kimś, kto komuś mentoruje",
+    "Jestem kimś, kto podjudza innych",
+    "Jestem kimś, kto czegoś dopilnuje",
+    "Jestem kimś, kto mędrkuje",
+    "Jestem kimś, kto się czymś dobija",
+    "Jestem kimś, kto się z kimś zżywa",
+    "Jestem kimś, kto kantuje",
+    "Jestem kimś, kto nalega",
+    "Jestem kimś, kto wybucha",
+    "Jestem kimś, kto inspiruje innych",
+    "Jestem kimś, kto się uraża",
+    "Jestem kimś, kto się spręża",
+    "Jestem kimś, kto lubi pozrzędzić",
+    "Jestem kimś, kto wulgarnieje",
+    "Jestem kimś, kto coś knoci",
+    "Jestem kimś, kto ustępuje",
+    "Jestem kimś, kto syczy na innych",
+    "Jestem kimś, kto komuś pobłaża",
+    "Jestem kimś, kto kogoś poniża",
+    "Jestem kimś, kto się zmiesza",
+    "Jestem kimś, kto coś uporządkuje",
+    "Jestem kimś, kto narzuca się innym",
+    "Jestem kimś, kto obiektywizuje",
+    "Jestem kimś, kto wyolbrzymia",
+    "Jestem kimś, kto się kimś wyręcza",
+    "Jestem kimś, kto się boczy",
+    "Jestem kimś, kto gburowacieje",
+    "Jestem kimś, kto coś lekceważy",
+    "Jestem kimś, kto komuś nawtyka",
+    "Jestem kimś, kto brawuruje",
+    "Jestem kimś, kto kibicuje innym",
+    "Jestem kimś, kto kapituluje",
+    "Jestem kimś, kto kogoś przymusza",
+    "Jestem kimś, kto naciska na innych",
+    "Jestem kimś, kto manipuluje",
+    "Jestem kimś, kto zachęci innych",
+    "Jestem kimś, kto kogoś podpuszcza",
+    "Jestem kimś, kto spiskuje",
+    "Jestem kimś, kto kogoś wyręcza",
+    "Jestem kimś, kto się z kimś spiera",
+    "Jestem kimś, kto na kogoś wpływa",
+    "Jestem kimś, kto knuje",
+    "Jestem kimś, kto błaznuje",
+    "Jestem kimś, kto łagodzi spory",
+    "Jestem kimś, kto obchodzi zasady",
+    "Jestem kimś, kto dziczeje",
+    "Jestem kimś, kto zapiernicza",
+    "Jestem kimś, kto się dezorganizuje",
+    "Jestem kimś, kto rozpacza",
+    "Jestem kimś, kto maltretuje innych",
+    "Jestem kimś, kto zadrwi z innych",
+    "Jestem kimś, kto koordynuje",
+    "Jestem kimś, kto panuje nad sobą",
+    "Jestem kimś, kto się zabezpiecza",
+    "Jestem kimś, kto się uniezależnia",
+    "Jestem kimś, kto kogoś moralizuje",
+    "Jestem kimś, kto pomaga innym",
+    "Jestem kimś, kto gdera",
+    "Jestem kimś, kto się kreuje",
+    "Jestem kimś, kto kogoś szantażuje",
+    "Jestem kimś, kto się otwiera",
+    "Jestem kimś, kto kogoś pogrąża",
+    "Jestem kimś, kto się alkoholizuje",
+    "Jestem kimś, kto poucza innych",
+    "Jestem kimś, kto coś uprzyjemnia",
+    "Jestem kimś, kto kogoś umniejsza",
+    "Jestem kimś, kto potrafi nakłamać",
+    "Jestem kimś, kto karze innych",
+    "Jestem kimś, kto subtelnieje",
+    "Jestem kimś, kto się przechwala",
+    "Jestem kimś, kto się przecenia",
+    "Jestem kimś, kto dołącza do grupy",
+    "Jestem kimś, kto potrafi spasować",
+    "Jestem kimś, kto się krępuje",
+    "Jestem kimś, kto sobie z kogoś podkpiwa",
+    "Jestem kimś, kto odbąkuje",
+    "Jestem kimś, kto odwarkuje",
+    "Jestem kimś, kto się irytuje",
+    "Jestem kimś, kto puentuje",
+    "Jestem kimś, kto zdąża z terminami",
+    "Jestem kimś, kto kogoś wyklucza",
+    "Jestem kimś, kto się czemuś oddaje",
+    "Jestem kimś, kto się wydziera",
+    "Jestem kimś, kto potrafi zgorzknieć",
+    "Jestem kimś, kto utrudnia",
+    "Jestem kimś, kto delikatnieje",
+    "Jestem kimś, kto histeryzuje",
+    "Jestem kimś, kto się katuje",
+    "Jestem kimś, kto na coś uskłada",
+    "Jestem kimś, kto parszywieje",
+    "Jestem kimś, kto zaczepia innych",
+    "Jestem kimś, kto coś kwestionuje",
+    "Jestem kimś, kto częstuje innych",
+    "Jestem kimś, kto dmucha na zimne",
+    "Jestem kimś, kto oszukuje",
+    "Jestem kimś, kto się odmóżdża",
+    "Jestem kimś, kto się o coś upomina",
+    "Jestem kimś, kto się forsuje",
+    "Jestem kimś, kto dopieprza innym",
+    "Jestem kimś, kto się rozczula",
+    "Jestem kimś, kto się nie patyczkuje",
+    "Jestem kimś, kto coś wymyśla",
+    "Jestem kimś, kto się chełpi",
+    "Jestem kimś, kto towarzyszy innym",
+    "Jestem kimś, kto wulgaryzuje",
+    "Jestem kimś, kto się alienuje",
+    "Jestem kimś, kto rywalizuje",
+    "Jestem kimś, kto donosi na innych",
+    "Jestem kimś, kto się weseli",
+    "Jestem kimś, kto naciąga innych",
+    "Jestem kimś, kto kogoś odpycha",
+    "Jestem kimś, kto komuś przytyka",
+    "Jestem kimś, kto się rozwija",
+    "Jestem kimś, kto obgaduje",
+    "Jestem kimś, kto się separuje",
+    "Jestem kimś, kto coś konkretyzuje",
+    "Jestem kimś, kto dręczy innych",
+    "Jestem kimś, kto się lituje",
+    "Jestem kimś, kto ścina się z innymi",
+    "Jestem kimś, kto się przestrasza",
+    "Jestem kimś, kto gnębi innych",
+    "Jestem kimś, kto coś ukonkretnia",
+    "Jestem kimś, kto się obrusza",
+    "Jestem kimś, kto atakuje",
+    "Jestem kimś, kto kokietuje innych",
+    "Jestem kimś, kto się doprasza",
+    "Jestem kimś, kto upokarza innych",
+    "Jestem kimś, kto kombinuje",
+    "Jestem kimś, kto kogoś doi",
+    "Jestem kimś, kto zasuwa",
+    "Jestem kimś, kto się odosabnia",
+    "Jestem kimś, kto kituje",
+    "Jestem kimś, kto się czymś szczyci",
+    "Jestem kimś, kto żartuje",
+    "Jestem kimś, kto naucza",
+    "Jestem kimś, kto kogoś odrzuca",
+    "Jestem kimś, kto coś odkrywa",
+    "Jestem kimś, kto kogoś nagabuje",
+    "Jestem kimś, kto potrafi coś palnąć",
+    "Jestem kimś, kto coś szmugluje",
+    "Jestem kimś, kto wierszuje",
+    "Jestem kimś, kto coś w sobie tłumi",
+    "Jestem kimś, kto pajacuje",
+    "Jestem kimś, kto zagłaskuje innych",
+    "Jestem kimś, kto się pasjonuje",
+    "Jestem kimś, kto kogoś zbajeruje",
+    "Jestem kimś, kto zazdrości",
+    "Jestem kimś, kto improwizuje",
+    "Jestem kimś, kto coś wyegzekwuje",
+    "Jestem kimś, kto tworzy",
+    "Jestem kimś, kto się maże",
+    "Jestem kimś, kto się dostosowuje",
+    "Jestem kimś, kto potrafi blefować",
+    "Jestem kimś, kto obmawia innych",
+    "Jestem kimś, kto dziękuje",
+    "Jestem kimś, kto się rozpija",
+    "Jestem kimś, kto narzeka",
+    "Jestem kimś, kto się rozkoszuje",
+    "Jestem kimś, kto się waha",
+    "Jestem kimś, kto się w coś wgłębia",
+    "Jestem kimś, kto kogoś rozśmiesza",
+    "Jestem kimś, kto współzawodniczy",
+    "Jestem kimś, kto terroryzuje innych",
+    "Jestem kimś, kto poważnieje",
+    "Jestem kimś, kto kogoś poniewiera",
+    "Jestem kimś, kto się z kimś okłada",
+    "Jestem kimś, kto odkłada pieniądze",
+    "Jestem kimś, kto się kamufluje",
+    "Jestem kimś, kto się zniechęca",
+    "Jestem kimś, kto kogoś wyzyskuje",
+    "Jestem kimś, kto czemuś przewodzi",
+    "Jestem kimś, kto się grzebie",
+    "Jestem kimś, kto się uprzedza",
+    "Jestem kimś, kto zrzędzi",
+    "Jestem kimś, kto się z kimś układa",
+    "Jestem kimś, kto komuś przyleje",
+    "Jestem kimś, kto papuguje",
+    "Jestem kimś, kto podpatruje innych",
+    "Jestem kimś, kto się boi",
+    "Jestem kimś, kto się przełamuje",
+    "Jestem kimś, kto coś roztrąbi",
+    "Jestem kimś, kto pochmurnieje",
+    "Jestem kimś, kto się ośmiela",
+    "Jestem kimś, kto szpieguje",
+    "Jestem kimś, kto się poducza",
+    "Jestem kimś, kto komuś usługuje",
+    "Jestem kimś, kto się zaśmiewa",
+    "Jestem kimś, kto kogoś układa",
+    "Jestem kimś, kto coś prognozuje",
+    "Jestem kimś, kto się szarogęsi",
+    "Jestem kimś, kto narusza umowę",
+    "Jestem kimś, kto się cieszy",
+    "Jestem kimś, kto coś uefektywnia",
+    "Jestem kimś, kto ucisza innych",
+    "Jestem kimś, kto lubi porozmawiać",
+    "Jestem kimś, kto długo ubolewa",
+    "Jestem kimś, kto się dopomina",
+    "Jestem kimś, kto się wścieka",
+    "Jestem kimś, kto dogadza innym",
+    "Jestem kimś, kto ironizuje",
+    "Jestem kimś, kto da się udobruchać",
+    "Jestem kimś, kto smęci",
+    "Jestem kimś, kto potrafi się najeżyć",
+    "Jestem kimś, kto lubi pomarzyć",
+    "Jestem kimś, kto się leni",
+    "Jestem kimś, kto kogoś urabia",
+    "Jestem kimś, kto daje się nabrać",
+    "Jestem kimś, kto ułatwia coś innym",
+    "Jestem kimś, kto biadoli",
+    "Jestem kimś, kto szlachetnieje",
+    "Jestem kimś, kto chamieje",
+    "Jestem kimś, kto dba o innych",
+    "Jestem kimś, kto się zapiera",
+    "Jestem kimś, kto rozbawi innych",
+    "Jestem kimś, kto potrafi ucichnąć",
+    "Jestem kimś, kto coś odwleka",
+    "Jestem kimś, kto się dogaduje",
+    "Jestem kimś, kto się poddaje",
+    "Jestem kimś, kto nachodzi innych",
+    "Jestem kimś, kto gani innych",
+    "Jestem kimś, kto szanuje innych",
+    "Jestem kimś, kto kogoś prowokuje",
+    "Jestem kimś, kto coś analizuje",
+    "Jestem kimś, kto dominuje innych",
+    "Jestem kimś, kto rymuje",
+    "Jestem kimś, kto coś inscenizuje",
+    "Jestem kimś, kto przygaduje innym",
+    "Jestem kimś, kto coś mąci",
+    "Jestem kimś, kto się słucha",
+    "Jestem kimś, kto kogoś obraża",
+    "Jestem kimś, kto się raduje",
+    "Jestem kimś, kto grymasi",
+    "Jestem kimś, kto wydziwia",
+    "Jestem kimś, kto coś zakłamuje",
+    "Jestem kimś, kto do czegoś dąży",
+    "Jestem kimś, kto dramatyzuje",
+    "Jestem kimś, kto bałagani",
+    "Jestem kimś, kto się uzależnia",
+    "Jestem kimś, kto się z kimś użera",
+    "Jestem kimś, kto dużo czyta",
+    "Jestem kimś, kto coś wyłudza",
+    "Jestem kimś, kto dogryza innym",
+    "Jestem kimś, kto coś/kogoś kopiuje",
+    "Jestem kimś, kto uszczegóławia",
+    "Jestem kimś, kto potrafi nabujać",
+    "Jestem kimś, kto się snobuje",
+    "Jestem kimś, kto obdzwania innych",
+    "Jestem kimś, kto dyplomatyzuje",
+    "Jestem kimś, kto się mizdrzy",
+    "Jestem kimś, kto się afiszuje",
+    "Jestem kimś, kto wybacza",
+    "Jestem kimś, kto zmyśla",
+    "Jestem kimś, kto napada na innych",
+    "Jestem kimś, kto się przepracowuje",
+    "Jestem kimś, kto kalkuluje",
+    "Jestem kimś, kto kogoś niańczy",
+    "Jestem kimś, kto kogoś powściąga",
+    "Jestem kimś, kto prorokuje",
+    "Jestem kimś, kto flirtuje",
+    "Jestem kimś, kto ripostuje",
+    "Jestem kimś, kto kogoś zbywa",
+    "Jestem kimś, kto kantuje",
+    "Jestem kimś, kto odpoczywa",
+    "Jestem kimś, kto się z kimś ściera",
+    "Jestem kimś, kto się frustruje",
+    "Jestem kimś, kto komplikuje",
+    "Jestem kimś, kto się opiekuje",
+    "Jestem kimś, kto przesadza",
+    "Jestem kimś, kto zakuwa",
+    "Jestem kimś, kto na kimś żeruje",
+    "Jestem kimś, kto lubi milczeć",
+    "Jestem kimś, kto ponagla innych",
+    "Jestem kimś, kto się oburza",
+    "Jestem kimś, kto się wstydzi",
+    "Jestem kimś, kto coś wyjaśnia",
+    "Jestem kimś, kto się buntuje",
+    "Jestem kimś, kto leniuchuje",
+    "Jestem kimś, kto się domyśla",
+    "Jestem kimś, kto ubóstwia innych",
+    "Jestem kimś, kto się wycofuje",
+    "Jestem kimś, kto się mądrzy",
+    "Jestem kimś, kto się denerwuje",
+    "Jestem kimś, kto się troszczy",
+    "Jestem kimś, kto się łudzi",
+    "Jestem kimś, kto korzysta z okazji",
+    "Jestem kimś, kto się odważa",
+    "Jestem kimś, kto upraszcza",
+    "Jestem kimś, kto coś kreuje",
+    "Jestem kimś, kto kogoś lekceważy",
+    "Jestem kimś, kto coś przeżywa",
+    "Jestem kimś, kto oczernia innych",
+    "Jestem kimś, kto kogoś popędza",
+    "Jestem kimś, kto się popisuje",
+    "Jestem kimś, kto się peszy",
+    "Jestem kimś, kto wybrzydza",
+    "Jestem kimś, kto kogoś podrywa",
+    "Jestem kimś, kto się zamartwia",
+    "Jestem kimś, kto się podlizuje",
+    "Jestem kimś, kto coś pozoruje",
+    "Jestem kimś, kto się tremuje",
+    "Jestem kimś, kto doradza innym",
+    "Jestem kimś, kto kogoś piętnuje",
+    "Jestem kimś, kto kontratakuje",
+    "Jestem kimś, kto się w coś wtrynia",
+    "Jestem kimś, kto coś upamiętnia",
+    "Jestem kimś, kto kogoś obwinia",
+    "Jestem kimś, kto działa",
+    "Jestem kimś, kto coś rozdmuchuje",
+    "Jestem kimś, kto się sprzeciwia",
+    "Jestem kimś, kto metaforyzuje",
+    "Jestem kimś, kto kogoś sprzedaje",
+    "Jestem kimś, kto czegoś zabrania",
+    "Jestem kimś, kto się czymś jara",
+    "Jestem kimś, kto się adaptuje",
+    "Jestem kimś, kto na kogoś najeżdża",
+    "Jestem kimś, kto rezygnuje",
+    "Jestem kimś, kto kogoś toleruje",
+    "Jestem kimś, kto nęka innych",
+    "Jestem kimś, kto się komuś zwierza",
+    "Jestem kimś, kto coś narzuca",
+    "Jestem kimś, kto pokornieje",
+    "Jestem kimś, kto się obraża",
+    "Jestem kimś, kto się zobowiązuje",
+    "Jestem kimś, kto małpuje innych",
+    "Jestem kimś, kto potrafi zełgać",
+    "Jestem kimś, kto kogoś uwodzi",
+    "Jestem kimś, kto kogoś zwyzywa",
+    "Jestem kimś, kto potrafi się nalatać",
+    "Jestem kimś, kto się trudzi",
+    "Jestem kimś, kto się awanturuje",
+    "Jestem kimś, kto się wdzięczy",
+    "Jestem kimś, kto kogoś znieważa",
+    "Jestem kimś, kto dyktuje zasady",
+    "Jestem kimś, kto ściemnia",
+    "Jestem kimś, kto się uszczęśliwia",
+    "Jestem kimś, kto pokrzykuje",
+    "Jestem kimś, kto oponuje",
+    "Jestem kimś, kto lubi pochlać",
+    "Jestem kimś, kto podróżuje",
+    "Jestem kimś, kto coś podważa",
+    "Jestem kimś, kto plotkuje",
+    "Jestem kimś, kto kopie się z innymi",
+    "Jestem kimś, kto coś ofiarowuje",
+    "Jestem kimś, kto długo wybiera",
+    "Jestem kimś, kto kogoś potępia",
+    "Jestem kimś, kto potrafi się obronić",
+    "Jestem kimś, kto się zgrywa",
+    "Jestem kimś, kto teoretyzuje",
+    "Jestem kimś, komu komuś naubliża",
+    "Jestem kimś, kto coś nakazuje",
+    "Jestem kimś, kto ryzykuje",
+    "Jestem kimś, kto potrafi zagadać",
+    "Jestem kimś, kto się ślimaczy",
+    "Jestem kimś, kto komuś odpuszcza",
+    "Jestem kimś, kto demoralizuje",
+    "Jestem kimś, kto się naigrawa",
+    "Jestem kimś, kto kryje innych",
+    "Jestem kimś, kto się oszukuje",
+    "Jestem kimś, kto udaje",
+    "Jestem kimś, kto potrafi docenić",
+    "Jestem kimś, kto poetyzuje",
+    "Jestem kimś, kto węszy coś złego",
+    "Jestem kimś, kto trajkocze",
+    "Jestem kimś, kto się chowa",
+    "Jestem kimś, kto łobuzuje",
+    "Jestem kimś, kto się ogranicza",
+    "Jestem kimś, kto manewruje",
+    "Jestem kimś, kto nawija",
+    "Jestem kimś, kto potrafi zmięknąć",
+    "Jestem kimś, kto się o coś rzuca",
+    "Jestem kimś, kto się czymś chlubi",
+    "Jestem kimś, kto komuś zaszkodzi",
+    "Jestem kimś, kto się asekuruje",
+    "Jestem kimś, kto haruje",
+    "Jestem kimś, kto ufa innym",
+    "Jestem kimś, kto się zakłada",
+    "Jestem kimś, kto lideruje",
+    "Jestem kimś, kto współczuje innym",
+    "Jestem kimś, kto się przejmuje",
+    "Jestem kimś, kto obciąża innych",
+    "Jestem kimś, kto skreśla ludzi",
+    "Jestem kimś, kto kontempluje",
+    "Jestem kimś, kto dopieszcza innych",
+    "Jestem kimś, kto coś dopracowuje",
+    "Jestem kimś, kto krytykuje",
+    "Jestem kimś, kto potrafi ochrzanić",
+    "Jestem kimś, kto tchórzy",
+    "Jestem kimś, kto potrafi wysłuchać",
+    "Jestem kimś, kto wymaga",
+    "Jestem kimś, kto kogoś bajeruje",
+    "Jestem kimś, kto pospiesza innych",
+    "Jestem kimś, kto kogoś wspomaga",
+    "Jestem kimś, kto pyskuje",
+    "Jestem kimś, kto integruje innych",
+    "Jestem kimś, kto się chichra",
+    "Jestem kimś, kto się rozkleja",
+    "Jestem kimś, kto się kisi",
+    "Jestem kimś, kto coś pożycza",
+    "Jestem kimś, kto lubi się droczyć",
+    "Jestem kimś, kto szasta pieniędzmi",
+    "Jestem kimś, kto się niepokoi",
+    "Jestem kimś, kto się użala",
+    "Jestem kimś, kto się przyjaźni",
+    "Jestem kimś, kto szpanuje",
+    "Jestem kimś, kto się dopasowuje",
+    "Jestem kimś, kto komplementuje",
+    "Jestem kimś, kto się guzdrze",
+    "Jestem kimś, kto bije innych",
+    "Jestem kimś, kto imaginuje",
+    "Jestem kimś, kto się organizuje",
+    "Jestem kimś, kto kogoś rozpija",
+    "Jestem kimś, kto potrafi się dzielić",
+    "Jestem kimś, kto się mści",
+    "Jestem kimś, kto zniechęca innych",
+    "Jestem kimś, kto się integruje",
+    "Jestem kimś, kto się pyszni",
+    "Jestem kimś, kto kogoś zdradza",
+    "Jestem kimś, kto się przykłada",
+    "Jestem kimś, kto się płaszczy",
+    "Jestem kimś, kto się trwoży",
+    "Jestem kimś, kto się angażuje",
+    "Jestem kimś, kto potrafi zaszaleć",
+    "Jestem kimś, kto chomikuje",
+    "Jestem kimś, kto się wyuczy",
+    "Jestem kimś, kto polega na innych",
+    "Jestem kimś, kto wygarnia innym",
+    "Jestem kimś, kto się puszy",
+    "Jestem kimś, kto zgaduje",
+    "Jestem kimś, kto się burzy",
+    "Jestem kimś, kto kpi",
+    "Jestem kimś, kto się mazgai",
+    "Jestem kimś, kto kogoś słucha",
+    "Jestem kimś, kto coś przepowiada",
+    "Jestem kimś, kto inicjuje",
+    "Jestem kimś, kto się wprasza",
+    "Jestem kimś, kto grozi innym",
+    "Jestem kimś, kto lubi się rozerwać",
+    "Jestem kimś, kto się mobilizuje",
+    "Jestem kimś, kto się gdzieś wpycha",
+    "Jestem kimś, kto orientuje innych",
+    "Jestem kimś, kto się zadręcza",
+    "Jestem kimś, kto drwi",
+    "Jestem kimś, kto się szanuje",
+    "Jestem kimś, kto okłamuje innych",
+    "Jestem kimś, kto kogoś uderza",
+    "Jestem kimś, kto ignoruje innych",
+    "Jestem kimś, kto kogoś umoralnia",
+    "Jestem kimś, kto dowcipkuje",
+    "Jestem kimś, kto się obija",
+    "Jestem kimś, kto potrafi zwyrodnieć",
+    "Jestem kimś, kto melancholizuje",
+    "Jestem kimś, kto się nakręca",
+    "Jestem kimś, kto się z kimś żre",
+    "Jestem kimś, kto się przyczepia",
+    "Jestem kimś, kto potrafi się wybić",
+    "Jestem kimś, kto się wkurza",
+    "Jestem kimś, kto zagrzewa innych",
+    "Jestem kimś, kto się w coś wciąga",
+    "Jestem kimś, kto się kłóci",
+    "Jestem kimś, kto się ociąga",
+    "Jestem kimś, kto się zadłuża",
+    "Jestem kimś, kto kogoś upomina",
+    "Jestem kimś, kto łączy innych",
+    "Jestem kimś, kto coś organizuje",
+    "Jestem kimś, kto się unosi",
+    "Jestem kimś, kto kogoś oskarża",
+    "Jestem kimś, kto się wzrusza",
+    "Jestem kimś, kto coś upraszcza",
+    "Jestem kimś, kto kogoś opuszcza",
+    "Jestem kimś, kto potulnieje",
+    "Jestem kimś, kto się powygłupia",
+    "Jestem kimś, kto coś obmyśla",
+    "Jestem kimś, kto potrafi się narobić",
+    "Jestem kimś, kto potrafi spodleć",
+    "Jestem kimś, kto schematyzuje",
+    "Jestem kimś, kto panuje nad innymi",
+    "Jestem kimś, kto łże",
+    "Jestem kimś, kto krzepi innych",
+    "Jestem kimś, kto tragizuje",
+    "Jestem kimś, kto naciąga fakty",
+    "Jestem kimś, kto kogoś odtrąca",
+    "Jestem kimś, kto eksploruje",
+    "Jestem kimś, kto czegoś użycza",
+    "Jestem kimś, kto znosi przykrości",
+    "Jestem kimś, kto gada",
+    "Jestem kimś, kto marudzi",
+    "Jestem kimś, kto kogoś więzi",
+    "Jestem kimś, kto przebacza",
+    "Jestem kimś, kto się pilnuje",
+    "Jestem kimś, kto czegoś żąda",
+    "Jestem kimś, kto chichocze",
+    "Jestem kimś, kto poustawia innych",
+    "Jestem kimś, kto skąpi",
+    "Jestem kimś, kto liczy się z innymi",
+    "Jestem kimś, kto coś skrywa",
+    "Jestem kimś, kto się powściąga",
+    "Jestem kimś, kto się porównuje",
+    "Jestem kimś, kto się czymś chwali",
+    "Jestem kimś, kto potrafi utulić",
+    "Jestem kimś, kto coś wymusza",
+    "Jestem kimś, kto się poświęca",
+    "Jestem kimś, kto dyryguje",
+    "Jestem kimś, kto się gdzieś wkręca",
+    "Jestem kimś, kto dotrzymuje słowa",
+    "Jestem kimś, kto się niecierpliwi",
+    "Jestem kimś, kto bije się z innymi",
+    "Jestem kimś, kto się wtrąca",
+    "Jestem kimś, kto się naburmusza",
+    "Jestem kimś, kto szydzi",
+    "Jestem kimś, kto autoironizuje",
+    "Jestem kimś, kto cygani",
+    "Jestem kimś, kto hałasuje",
+    "Jestem kimś, kto ulega",
+    "Jestem kimś, kto kabluje na innych",
+    "Jestem kimś, kto kogoś zastrasza",
+    "Jestem kimś, kto kogoś prześladuje",
+    "Jestem kimś, kto skłóca innych",
+    "Jestem kimś, kto napastuje innych",
+    "Jestem kimś, kto o coś wojuje",
+    "Jestem kimś, kto się spoufala",
+    "Jestem kimś, kto kogoś wspiera",
+    "Jestem kimś, kto coś wróży",
+    "Jestem kimś, kto komuś dopieka",
+    "Jestem kimś, kto trzyma się reguł",
+    "Jestem kimś, kto kogoś zwodzi",
+    "Jestem kimś, kto odciąża innych",
+    "Jestem kimś, kto się wymiguje",
+    "Jestem kimś, kto osacza innych",
+    "Jestem kimś, kto przeprasza",
+    "Jestem kimś, kto się przymusza",
+    "Jestem kimś, kto wtyka gdzieś nos",
+    "Jestem kimś, kto się udziela",
+    "Jestem kimś, kto przekupuje innych",
+    "Jestem kimś, kto fantazjuje",
+    "Jestem kimś, kto czymś zarządza",
+    "Jestem kimś, kto angażuje innych",
+    "Jestem kimś, kto lamentuje",
+    "Jestem kimś, kto daje się namówić",
+    "Jestem kimś, kto się czymś gryzie",
+    "Jestem kimś, kto się odszczekuje",
+    "Jestem kimś, kto się przemęcza",
+    "Jestem kimś, kto się izoluje",
+    "Jestem kimś, kto podsłuchuje",
+    "Jestem kimś, kto potrafi odmówić",
+    "Jestem kimś, kto coś roztrząsa",
+    "Jestem kimś, kto coś marnotrawi",
+    "Jestem kimś, kto kogoś faworyzuje",
+    "Jestem kimś, kto broni innych",
+    "Jestem kimś, kto przedrzeźnia",
+    "Jestem kimś, kto kogoś łudzi",
+    "Jestem kimś, kto gnoi innych",
+    "Jestem kimś, kto komuś wierzy",
+    "Jestem kimś, kto się stroi",
+    "Jestem kimś, kto się ceni",
+    "Jestem kimś, kto z kimś zrywa",
+    "Jestem kimś, kto się lęka",
+    "Jestem kimś, kto mobilizuje innych",
+    "Jestem kimś, kto się dąsa",
+    "Jestem kimś, kto konfliktuje innych",
+    "Jestem kimś, kto się uwija",
+    "Jestem kimś, kto się wypłakuje",
+    "Jestem kimś, kto kapuje na innych",
+    "Jestem kimś, kto się uskarża",
+    "Jestem kimś, kto planuje",
+    "Jestem kimś, kto imprezuje",
+    "Jestem kimś, kto problematyzuje",
+    "Jestem kimś, kto się rozwydrza",
+    "Jestem kimś, kto w coś wnika",
+    "Jestem kimś, kto docina innym",
+    "Jestem kimś, kto przerywa innym",
+    "Jestem kimś, kto lubi gawędzić",
+    "Jestem kimś, kto melodramatyzuje",
+    "Jestem kimś, kto się rewanżuje",
+    "Jestem kimś, kto tłamsi innych",
+    "Jestem kimś, kto się doskonali",
+    "Jestem kimś, kto ględzi",
+    "Jestem kimś, kto się czuli",
+    "Jestem kimś, kto się kłopocze",
+    "Jestem kimś, kto łagodnieje",
+    "Jestem kimś, komu zdarza się zadumać",
+    "Jestem kimś, kto komuś coś wytyka",
+    "Jestem kimś, kto potrafi dźwignąć coś trudnego",
+    "Jestem kimś, kto się obnaża (psychicznie)",
+    "Jestem kimś, kto przewiduje co będzie",
+    "Jestem kimś, kto potrafi kogoś rozwścieczyć",
+    "Jestem kimś, kto spotyka się z innymi",
+    "Jestem kimś, kto potrafi wycyckać innych",
+    "Jestem kimś, kto przyklaskuje innym",
+    "Jestem kimś, kto łatwo się odkochuje",
+    "Jestem kimś, kto potrafi się wyedukować",
+    "Jestem kimś, kto potrafi kogoś skląć",
+    "Jestem kimś, komu zdarza się pojęczeć",
+    "Jestem kimś, kto czymś dobrze gospodaruje",
+    "Jestem kimś, kto potrafi komuś nawymyślać",
+    "Jestem kimś, kto potrafi wytrzymać coś przykrego",
+    "Jestem kimś, kto potrafi się zagalopować",
+    "Jestem kimś, kto potrafi wybrnąć z czegoś trudnego",
+    "Jestem kimś, komu zdarza się na kogoś poskarżyć",
+    "Jestem kimś, kto się czegoś doszukuje",
+    "Jestem kimś, kto się w czymś zatraca",
+    "Jestem kimś, kto lubi się poprzekomarzać",
+    "Jestem kimś, komu zdarza się coś przemilczeć",
+    "Jestem kimś, kto potrafi się w czymś wyćwiczyć",
+    "Jestem kimś, kto potrafi kogoś zdopingować",
+    "Jestem kimś, kto się unieszczęśliwia",
+    "Jestem kimś, kto kogoś do czegoś popycha",
+    "Jestem kimś, kto potrafi zlodowacieć",
+    "Jestem kimś, kto lubi dokończyć to, co zaczął",
+    "Jestem kimś, kto potrafi coś przeforsować",
+    "Jestem kimś, kto potrafi się ochronić",
+    "Jestem kimś, kto kogoś szczuje przeciwko komuś",
+    "Jestem kimś, kto potrafi się zmordować",
+    "Jestem kimś, kto się dowartościowuje",
+    "Jestem kimś, kto odłącza kogoś od grupy",
+    "Jestem kimś, komu zdarza się nad sobą poużalać",
+    "Jestem kimś, potrafi doszlifować coś niedoskonałego",
+    "Jestem kimś, kto potrafi czymś/kimś pokierować",
+    "Jestem kimś, kto potrafiłby kogoś wydać",
+    "Jestem kimś, kto potrafi się nawykłócać o swoje",
+    "Jestem kimś, kto potrafi zadośćuczynić",
+    "Jestem kimś, kto kogoś sobie podporządkowuje",
+    "Jestem kimś, kto potrafi kogoś dowartościować",
+    "Jestem kimś, komu zdarza się kogoś wsypać",
+    "Jestem kimś, kto odłącza się od grupy",
+    "Jestem kimś, kto się w czymś wprawia",
+    "Jestem kimś, kto potrafi komuś łupnąć",
+    "Jestem kimś, kto potrafi coś przedsięwziąć",
+    "Jestem kimś, kto lubi pomęczyć innych",
+    "Jestem kimś, kto oddaje to, co pożyczył",
+    "Jestem kimś, komu zdarza się zestresować",
+    "Jestem kimś, kto potrafi zaapelować do innych",
+    "Jestem kimś, kto potrafi się zreflektować",
+    "Jestem kimś, kto potrafi się rozgniewać",
+    "Jestem kimś, kto coś komuś wmawia",
+    "Jestem kimś, kto potrafi komuś przydzwonić",
+    "Jestem kimś, kto potrafi coś skomponować",
+    "Jestem kimś, kto potrafi coś zaprojektować",
+    "Jestem kimś, kto kogoś do czegoś zmusza",
+    "Jestem kimś, kto potrafi komuś rąbnąć",
+    "Jestem kimś, kto się komuś/czemuś opiera",
+    "Jestem kimś, kto potrafi kogoś omotać",
+    "Jestem kimś, komu zdarza się coś zakosić",
+    "Jestem kimś, kto daje się przekabacić",
+    "Jestem kimś, kto potrafi się na kimś odegrać",
+    "Jestem kimś, komu zdarza się z kimś poprztykać",
+    "…kto coś/kogoś zaniedbuje",
+    "Jestem kimś, kto potrafi coś przegwizdać",
+    "Jestem kimś, kto odnajduje się w nowym miejscu",
+    "Jestem kimś, kto potrafi omamić innych",
+    "Jestem kimś, kto bywa w wielu miejscach",
+    "Jestem kimś, kto potrafi przekabacić innych",
+    "Jestem kimś, komu zdarza się na kogoś nawrzucać",
+    "Jestem kimś, kto potrafi się zabawić",
+    "Jestem kimś, kto komuś się wysługuje",
+    "Jestem kimś, kto sobie coś przywłaszcza",
+    "Jestem kimś, kto coś wmusza innym",
+    "Jestem kimś, kto obdarowuje innych",
+    "Jestem kimś, kto przypochlebia się innym",
+    "Jestem kimś, kto potrafi się zgorszyć",
+    "Jestem kimś, kto uczula na coś innych",
+    "Jestem kimś, kto się indywidualizuje",
+    "Jestem kimś, kto potrafi kogoś okiełznać",
+    "Jestem kimś, komu zdarza się zesztywnieć uczuciowo",
+    "Jestem kimś, kto potrafi coś zdezorganizować",
+    "Jestem kimś, kto potrafi się z kimś pojednać",
+    "Jestem kimś, kto potrafi kogoś wygryźć",
+    "Jestem kimś, kto potrafi się nad czymś napocić",
+    "Jestem kimś, kto potrafi rozgryźć coś trudnego",
+    "Jestem kimś, kto potrafi pozabierać coś innym",
+    "Jestem kimś, kto potrafi się czymś zafascynować",
+    "Jestem kimś, kto optymalizuje działanie",
+    "Jestem kimś, kto potrafi się o coś spienić",
+    "Jestem kimś, kto potrafi kontrargumentować",
+    "Jestem kimś, kto potrafi się na czymś zafiksować",
+    "Jestem kimś, kto potrafi poodsuwać od siebie innych",
+    "Jestem kimś, kto odkrywa się przed innymi",
+    "Jestem kimś, kto potrafi coś przegadać",
+    "Jestem kimś, kto usztywnia się w swojej opinii",
+    "Jestem kimś, kto potrafi coś komuś wytłumaczyć",
+    "Jestem kimś, kto się z kogoś natrząsa",
+    "Jestem kimś, kto się do czegoś nagina",
+    "Jestem kimś, kto potrafi kogoś okrzesać",
+    "Jestem kimś, kto potrafi ponabierać innych",
+    "Jestem kimś, kto się na czymś/kimś wyładowuje",
+    "Jestem kimś, kto potrafi coś zdzierżyć",
+    "Jestem kimś, kto potrafi przeganiać cały dzień",
+    "Jestem kimś, kto potrafi się wyobcować",
+    "Jestem kimś, komu zdarza się zgrzecznieć",
+    "Jestem kimś, kto potrafi się rozbałamucić",
+    "Jestem kimś, kto potrafi ubłagać inną osobę",
+    "Jestem kimś, kto zagarnia coś dla siebie",
+    "Jestem kimś, kto potrafi nad sobą zapanować",
+    "Jestem kimś, kto potrafi coś zagospodarować",
+    "Jestem kimś, kto potrafi kogoś podszkolić",
+    "Jestem kimś, kto potrafi kogoś okpić",
+    "Jestem kimś, kto potrafi kogoś oplątać",
+    "Jestem kimś, kto potrafi się komuś przypodobać",
+    "Jestem kimś, kto się do kogoś przykleja",
+    "Jestem kimś, kto dyscyplinuje innych",
+    "Jestem kimś, komu zdarza się gdzieś wtargnąć",
+    "Jestem kimś, kto tępieje emocjonalnie",
+    "Jestem kimś, kto lubi liznąć czegoś nowego",
+    "Jestem kimś, kto rozdaje swoje rzeczy",
+    "Jestem kimś, kto lubi podkoloryzować",
+    "Jestem kimś, kto tuszuje coś nieprzyjemnego",
+    "Jestem kimś, potrafi odciągać innych od obowiązków",
+    "Jestem kimś, kto streszcza się w rozmowie",
+    "Jestem kimś, kto potrafi kogoś sprać",
+    "Jestem kimś, komu zdarza się coś pokpić",
+    "Jestem kimś, kto potrafi usprawnić działanie czegoś",
+    "Jestem kimś, komu zdarza się sposępnieć",
+    "Jestem kimś, kto potrafi ocyganić innych",
+    "Jestem kimś, kto potrafi się wylansować",
+    "Jestem kimś, kto o czymś rozprawia",
+    "Jestem kimś, kto się na kimś wyżywa",
+    "Jestem kimś, kto kogoś dyskryminuje",
+    "Jestem kimś, kto coś komuś wypomina",
+    "Jestem kimś, kto przed czymś ostrzega",
+    "Jestem kimś, kto się z czymś obnosi",
+    "Jestem kimś, kto potrafi na kogoś nawrzeszczeć",
+    "Jestem kimś, kto potrafi zbuntować innych",
+    "Jestem kimś, kto potrafi pohamować innych",
+    "Jestem kimś, kto potrafi coś zafałszować",
+    "Jestem kimś, kto potrafi się rozleniwić",
+    "Jestem kimś, kto potrafi się rozswawolić",
+    "Jestem kimś, kto potrafi coś sfinalizować",
+    "Jestem kimś, kto wcina się w rozmowę",
+    "Jestem kimś, kto lubi pokonwersować",
+    "Jestem kimś, kto się zniża do czyjegoś poziomu",
+    "Jestem kimś, kto coś komuś wyszarpuje",
+    "Jestem kimś, kto potrafi zaoszczędzić",
+    "Jestem kimś, kto potrafi kogoś zjechać",
+    "Jestem kimś, kto potrafi coś załagodzić",
+    "Jestem kimś, kto potrafi kogoś o coś podpytać",
+    "Jestem kimś, komu zdarza się kogoś walnąć",
+    "Jestem kimś, kto potrafi pogubić wiele rzeczy",
+    "Jestem kimś, kto potrafi coś załatwić",
+    "Jestem kimś, kto potrafi kogoś w coś wmanewrować",
+    "Jestem kimś, kto potrafi się ogarnąć",
+    "Jestem kimś, kto potrafi kogoś usadzić",
+    "Jestem kimś, kto przylepia się do kogoś",
+    "Jestem kimś, kto się za kimś ujmuje",
+    "Jestem kimś, kto potrafi się rozbeczeć",
+    "Jestem kimś, kto potrafi na kogoś huknąć",
+    "Jestem kimś, komu zdarza się oziębnąć",
+    "Jestem kimś, kto potrafi się zrehabilitować",
+    "Jestem kimś, kto potrafi coś chlapnąć",
+    "Jestem kimś, kto zraża się do innych",
+    "potrafi nagimnastykować, aby coś osiągnąć",
+    "Jestem kimś, kto potrafi coś ukartować",
+    "Jestem kimś, kto potrafi się podbudować",
+    "Jestem kimś, komu zdarza się zważnieć",
+    "Jestem kimś, kto potrafi zaimprowizować",
+    "Jestem kimś, kto potrafi przechytrzyć innych",
+    "Jestem kimś, kto potrafi się pocieszyć",
+    "Jestem kimś, kto potrafi coś rozpaplać",
+    "Jestem kimś, kto potrafi kogoś wyszkolić",
+    "Jestem kimś, kto się od kogoś odwraca",
+    "Jestem kimś, kto potrafi przegonić w czymś innych",
+    "Jestem kimś, kto uelastycznia działanie",
+    "Jestem kimś, kto potrafi kogoś lub coś rozpracować",
+    "Jestem kimś, kto uchyla się od obowiązków",
+    "Jestem kimś, kto potrafi się zrelaksować",
+    "Jestem kimś, kto potrafi się rozłajdaczyć",
+    "Jestem kimś, komu zdarza się rozdrażnić",
+    "Jestem kimś, kto potrafi się z czymś pogodzić",
+    "Jestem kimś, kto się usprawiedliwia",
+    "Jestem kimś, kto potrafi się z kimś policzyć",
+    "Jestem kimś, kto komuś nadskakuje",
+    "Jestem kimś, kto się gdzieś włamuje",
+    "Jestem kimś, kto szufladkuje innych",
+    "Jestem kimś, kto potrafi zjednoczyć innych",
+    "Jestem kimś, podciąga się w czymś, by być lepszym",
+    "Jestem kimś, kto potrafi kogoś zdzielić",
+    "Jestem kimś, kto potrafi coś udaremnić",
+    "Jestem kimś, kto potrafi coś zorganizować",
+    "Jestem kimś, kto potrafi coś wynagrodzić",
+    "Jestem kimś, kto zwala na kogoś obowiązki",
+    "Jestem kimś, kto się do kogoś dostraja",
+    "Jestem kimś, kto potrafi podbudować innych",
+    "Jestem kimś, kto potrafi coś powkręcać innym",
+    "Jestem kimś, kto podpowiada innym",
+    "Jestem kimś, kto potrafi wyidealizować",
+    "Jestem kimś, kto wywyższa się nad innych",
+    "Jestem kimś, komu zdarza się nabuzować",
+    "Jestem kimś, kto się przystosowuje",
+    "Jestem kimś, kto potrafi nad kimś zapanować",
+    "Jestem kimś, kto potrafi ugościć innych",
+    "Jestem kimś, kto się uważa za kogoś ważniejszego",
+    "Jestem kimś, kto potrafi skrzyknąć grupę ludzi",
+    "Jestem kimś, kto lubi poromansować",
+    "Jestem kimś, kto potrafi zadbać o to, co wymaga troski",
+    "Jestem kimś, kto interweniuje, gdy dzieje się coś złego",
+    "Jestem kimś, komu zdarza się wyczerpać",
+    "Jestem kimś, komu zdarza się wyżalić",
+    "Jestem kimś, kto potrafi komuś przyłożyć",
+    "Jestem kimś, kto potrafi się rozgadać",
+    "Jestem kimś, kto potrafi się z kimś zakolegować",
+    "Jestem kimś, kto sobie kompensuje brak czegoś",
+    "Jestem kimś, kto potrafi coś sprostować",
+    "Jestem kimś, kto potrafi się w czymś wyspecjalizować",
+    "Jestem kimś, kto potrafi się zmanierować",
+    "Jestem kimś, kto kogoś uszczęśliwia",
+    "Jestem kimś, kto wyświadcza komuś przysługę",
+    "Jestem kimś, kto potrafi się skruszyć",
+    "Jestem kimś, komu zdarza się za czymś pognać",
+    "Jestem kimś, kto często się w kimś zadurza",
+    "Jestem kimś, komu zdarza się uderzyć",
+    "Jestem kimś, kto potrafi zaryzykować",
+    "Jestem kimś, komu zdarza się coś zwinąć",
+    "Jestem kimś, kto potrafi się w czymś podszkolić",
+    "Jestem kimś, kto bierze dużo od innych",
+    "Jestem kimś, komu zdarza się przerżnąć dużą kwotę",
+    "Jestem kimś, kto wychowuje innych",
+    "Jestem kimś, kto potrafi się zaciekawić",
+    "Jestem kimś, kto się kimś wysługuje",
+    "Jestem kimś, kto potrafi coś troskliwie wychuchać",
+    "Jestem kimś, kto potrafi się ześwinić",
+    "Jestem kimś, kto potrafi coś wyśledzić",
+    "Jestem kimś, potrafi wdrożyć się do czegoś nowego",
+    "Jestem kimś, kto potrafi znikczemnieć",
+    "Jestem kimś, kto potrafi argumentować",
+    "Jestem kimś, kto potrafi coś przehulać",
+    "Jestem kimś, komu zdarza się kogoś oskubać",
+    "Jestem kimś, kto się dwoi, aby coś osiągnąć",
+    "Jestem kimś, komu zdarza się popłakać",
+    "Jestem kimś, kto potrafi naspraszać wiele osób",
+    "skłania innych do czegoś, co nie chcą robić",
+    "Jestem kimś, kto potrafi się zbliżyć do innej osoby",
+    "Jestem kimś, komu zdarza się kogoś stłuc",
+    "Jestem kimś, kto potrafi się rozgorączkować",
+    "Jestem kimś, kto potrafi coś zracjonalizować",
+    "Jestem kimś, kto się pod kogoś podszywa",
+    "Jestem kimś, potrafi coś do czegoś wkomponować",
+    "Jestem kimś, kto kogoś lub coś wyczuwa",
+    "Jestem kimś, komu zdarza się coś zwędzić",
+    "Jestem kimś, potrafi wytargować coś korzystnego",
+    "Jestem kimś, komu zdarza się zmarkotnieć",
+    "Jestem kimś, kto się z kimś schodzi (zaczyna związek)",
+    "Jestem kimś, kto się do kogoś przywala",
+    "Jestem kimś, kto potrafi spietrać",
+    "Jestem kimś, kto się na coś wyczula",
+    "Jestem kimś, kto oszczędza komuś przykrości",
+    "Jestem kimś, komu zdarza się kogoś wykołować",
+    "Jestem kimś, kto pasożytuje na innych",
+    "Jestem kimś, komu zdarza się spłoszyć",
+    "Jestem kimś, komu zdarza się przebalować jakiś czas",
+    "Jestem kimś, potrafi przetracić coś wartościowego",
+    "Jestem kimś, kto potrafi się ukorzyć",
+    "Jestem kimś, kto potrafi coś do czegoś dopasować",
+    "Jestem kimś, kto coś/kogoś poprawia",
+    "Jestem kimś, kto potrafi pogwałcić prawa innych",
+    "Jestem kimś, kto potrafi coś wynegocjować",
+    "Jestem kimś, kto potrafi kogoś odrwić",
+    "Jestem kimś, kto potrafi coś komuś zrekompensować",
+    "Jestem kimś, kto nabija się z innych",
+    "Jestem kimś, kto potrafi się powymądrzać",
+    "Jestem kimś, kto potrafi się wtopić w tłum",
+    "Jestem kimś, kto coś z kogoś kalkuje",
+    "Jestem kimś, potrafi dotknąć innych swoimi słowami",
+    "Jestem kimś, kto spina się, żeby zrobić coś trudnego",
+    "Jestem kimś, kto wykorzystuje innych",
+    "Jestem kimś, kto się intelektualizuje",
+    "Jestem kimś, kto potrafi coś uściślić",
+    "Jestem kimś, kto potrafi na coś/kogoś napsioczyć",
+    "Jestem kimś, kto potrafi przez coś przebrnąć",
+    "Jestem kimś, komu zdarza się coś uroić",
+    "Jestem kimś, kto potrafi kogoś wykiwać",
+    "Jestem kimś, kto potrafi nakłonić do czegoś innych",
+    "potrafi pomścić wyrządzoną mu krzywdę",
+    "Jestem kimś, kto potrafi się za coś zabrać",
+    "Jestem kimś, komu zdarza się rozzłościć",
+    "Jestem kimś, komu zdarza się kogoś obsmarować",
+    "Jestem kimś, kto garnie innych do siebie",
+    "Jestem kimś, kto potrafi sobą właściwie pokierować",
+    "Jestem kimś, kto często do kogoś zachodzi",
+    "Jestem kimś, kto potrafi coś zaaranżować",
+    "Jestem kimś, kto rozwiązuje problemy",
+    "Jestem kimś, kto na kogoś naskakuje",
+    "Jestem kimś, kto konkuruje z innymi",
+    "Jestem kimś, kto potrafi pokonać przeszkody",
+    "Jestem kimś, kto potrafi kogoś wyuczyć",
+    "Jestem kimś, kto potrafi odgadnąć czyjeś zamiary",
+    "Jestem kimś, kto potrafi kogoś opanować",
+    "Jestem kimś, kto potrafi znienawidzić",
+    "Jestem kimś, kto potrafi odszyfrować coś ukrytego",
+    "Jestem kimś, kto potrafi się pofatygować",
+    "Jestem kimś, komu zdarza się kogoś przetrzepać",
+    "Jestem kimś, kto potrafi opracowac coś całościowo",
+    "Jestem kimś, kto potrafi coś wyprorokować",
+    "Jestem kimś, kto potrafi coś zrealizować",
+    "Jestem kimś, kto się nad czymś rozwodzi",
+    "Jestem kimś, kto potrafi przebimbać jakiś czas",
+    "Jestem kimś, kto potrafi coś przekłamać",
+    "Jestem kimś, kto zawala się obowiązkami",
+    "Jestem kimś, kto się czegoś domaga",
+    "Jestem kimś, kto potrafi się opanować",
+    "Jestem kimś, kto zbiega (np z miejsca wypadku)",
+    "Jestem kimś, komu zdarza się czegoś pozapominać",
+    "Jestem kimś, kto potrafi się rozgoryczyć",
+    "Jestem kimś, kto potrafi kogoś wytresować",
+    "Jestem kimś, kto potrafi się z kimś rozmówić",
+    "Jestem kimś, komu zdarza się zauroczyć",
+    "Jestem kimś, kto potrafi się pohamować",
+    "Jestem kimś, kto potrafi sobie zjednać innych",
+    "Jestem kimś, kto potrafi rozentuzjazmować innych",
+    "Jestem kimś, kto potrafi się wycwanić",
+    "Jestem kimś, kto potrafi zobojętnieć",
+    "Jestem kimś, potrafi pozbierać się po czymś trudnym",
+    "Jestem kimś, kto potrafi się utemperować",
+    "Jestem kimś, kto nie przebiera w słowach",
+    "Jestem kimś, kto potrafi się rozentuzjazmować",
+    "Jestem kimś, kto potrafi kogoś zmylić",
+    "Jestem kimś, komu zdarza się złamać prawo",
+    "Jestem kimś, kto potrafi pojednać innych",
+    "Jestem kimś, kto potrafi się zacietrzewić",
+    "Jestem kimś, kto wychwala kogoś lub coś",
+    "Jestem kimś, komu zdarza się kogoś spoliczkować",
+    "Jestem kimś, kto potrafi udobruchać innych",
+    "Jestem kimś, kto się do kogoś dopieprza",
+    "Jestem kimś, kto potrafi coś doprecyzować",
+    "Jestem kimś, zdarza mu się kogoś skompromitować",
+    "Jestem kimś, komu zdarza się zażenować",
+    "Jestem kimś, komu zdarza się z kimś wytarmosić",
+    "Jestem kimś, kto potrafi wydębić coś od innych",
+    "Jestem kimś, komu zdarza się kogoś wyrolować",
+    "Jestem kimś, kto potrafi coś wywalczyć",
+    "Jestem kimś, kto potrafi się odwdzięczyć",
+    "Jestem kimś, kto potrafi się nad kimś poznęcać",
+    "Jestem kimś, kto potrafi coś wykombinować",
+    "Jestem kimś, kto potrafi się wpasować",
+    "Jestem kimś, komu zdarza się stwardnieć",
+    "Jestem kimś, komu zdarza się wyściskać innych",
+    "Jestem kimś, kto coś dla siebie skubnie",
+    "Jestem kimś, kto lubi dostąpić zaszczytów",
+    "Jestem kimś, komu zdarza się na coś zawziąć",
+    "Jestem kimś, kto potrafi się zgrać z innymi",
+    "Jestem kimś, kto ubarwia opowiadając",
+    "Jestem kimś, kto się czymś zasłania",
+    "Jestem kimś, kto potrafi coś zdemolować",
+    "Jestem kimś, kto się nieprzyzwoicie wyraża",
+    "Jestem kimś, kto potrafi się rozzuchwalić",
+    "Jestem kimś, kto lubi się wyszumieć",
+    "Jestem kimś, kto maskuje swoje uczucia",
+    "Jestem kimś, kto potrafi coś wyniuchać",
+    "Jestem kimś, kto potrafi kogoś ujarzmić",
+    "Jestem kimś, kto potrafi coś ścierpieć",
+    "Jestem kimś, kto potrafi się nad czymś nagłowić",
+    "Jestem kimś, kto potrafi pozadzierać z innymi",
+    "Jestem kimś, kto wyśmiewa się z kogoś/czegoś",
+    "Jestem kimś, kto rozplanowuje czynności w czasie",
+    "Jestem kimś, kto kontroluje swoje otoczenie",
+    "Jestem kimś, kto się za kimś wstawia",
+    "Jestem kimś, kto zakazuje komuś czegoś",
+    "Jestem kimś, kto potrafi sobie kogoś zaskarbić",
+    "Jestem kimś, komu zdarza się kogoś przepędzić",
+    "Jestem kimś, kto podbiera coś innym",
+    "Jestem kimś, kto coś komuś osładza",
+    "Jestem kimś, kto się konsultuje z innymi",
+    "długo się wybiera, kiedy gdzieś wychodzi",
+    "Jestem kimś, kto łatwo się zakochuje",
+    "Jestem kimś, kto potrafi się wyluzować",
+    "Jestem kimś, kto lubi pomedytować",
+    "Jestem kimś, kto odbiega od tematu",
+    "Jestem kimś, kto się z czegoś wywiązuje",
+    "Jestem kimś, kto dorzuca coś od siebie do rozmowy"
+  ];
+
+  var lista2 = ["Zdanie 0",
+    "Jestem duszą towarzystwa.",
+    "Niezbyt obchodzą mnie inni ludzie.",
+    "Jestem zawsze przygotowana.",
+    "Łatwo się stresuję.",
+    "Mam bogate słownictwo.",
+    "Niewiele mówię.",
+    "Jestem naprawdę zainteresowana innymi ludźmi.",
+    "Zostawiam swoje rzeczy gdzie popadnie.",
+    "Zwykle jestem zrelaksowana.",
+    "Mam trudności ze zrozumieniem abstrakcyjnych pojęć.",
+    "Świetnie się czuję wśród ludzi.",
+    "Często obrażam innych.",
+    "Przywiązuję wagę do szczegółów.",
+    "Często się czymś martwię.",
+    "Mam bujną wyobraźnię.",
+    "Trzymam się z boku.",
+    "Jestem wyrozumiała dla uczuć innych ludzi.",
+    "Często zawalam różne sprawy.",
+    "Rzadko czuję się przygnębiona.",
+    "Nie interesują mnie abstrakcyjne idee.",
+    "Inicjuję rozmowy.",
+    "Nie interesują mnie problemy innych ludzi.",
+    "Bez zwłoki wypełniam codzienne obowiązki.",
+    "Łatwo mnie zaniepokoić.",
+    "Mam świetne pomysły.",
+    "Mam niewiele do powiedzenia.",
+    "Mam dobre serce.",
+    "Często zapominam odkładać rzeczy na miejsce.",
+    "Łatwo mnie wyprowadzić z równowagi.",
+    "Nie mam zbyt bogatej wyobraźni.",
+    "Rozmawiam z wieloma różnymi ludźmi na przyjęciach.",
+    "Tak naprawdę nie interesują mnie ludzie.",
+    "Lubię porządek.",
+    "Często miewam zmiany nastroju.",
+    "Łatwo przychodzi mi zrobienie czegoś nowego.",
+    "Nie lubię zwracać na siebie uwagi.",
+    "Znajduję czas dla innych.",
+    "Zapominam o swoich obowiązkach.",
+    "Często miewam huśtawki nastrojów.",
+    "Używam trudnych słów.",
+    "Nie przeszkadza mi bycie w centrum uwagi.",
+    "Wczuwam się w emocje innych.",
+    "Postępuję zgodnie z harmonogramem.",
+    "Łatwo się irytuję.",
+    "Spędzam czas na rozmyślaniach.",
+    "Wśród nieznajomych jestem małomówna.",
+    "W moim towarzystwie inni czują się swobodnie.",
+    "W pracy dużo od siebie wymagam.",
+    "Często jestem przygnębiona.",
+    "Mam głowę pełną pomysłów."
+  ];
+  //KONIEC zdania
+
+
+  //START skrypt losowania bez zwracania
+
+  var numery50 = Array.from({length: lista2.length - 1}, (_, i) => i + 1);
+
+  var numery1084 = Array.from({length: lista1.length - 1}, (_, i) => i + 1);
+
+  function shuffle(o) {
+    for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x) ;
+    return o;
+  };
+
+  //KONIEC skryptu losowania
+
+  const self_peer = 'S';
+  const wersja = 1; //układ pytań: A(123); B(132); C(213); D(231); E(312); F(321)
+  var ver = 'K' + wersja;
+
+  var nrZdania = 0;
+  var Zdania1;
+  var Zdania2;
+  var Zdania3;
+  var nrZestawuA;
+  var nrZestawuB;
+  var nrZestawuC;
+  var nrZestawu;
+  var licznik = 0;
+  var licznik2 = 0;
+  var licznik3 = 0;
+  var strona = 0;
+  var uklad;
+  var Zdania;
+  var etap; //3 części
+  var plec;
+  var stop = 50;
+  var kontrola_111 = 0;
+  var kontrola_123 = 0;
+  var kreska = 0;
+  var przycisk = 0;
+  var wezyk_str = 'a';
+  var spacja_OFF = 0;
+  var fullscr_OFF = 0;
+  var clickedTime;
+  var createdTime = Date.now();
+  var reactionTime;
+  var itemy = [];
+  var czas = [];
+  var odpowiedz = [];
+  var bledy_typ = [];
+  var bledy_nr = [];
+  var data_start = new Date();
+  var alert_bledu = 0;
+  var data_stop;
+  var time_start = Date.now();
+  var time_stop;
+  var spacja_press = 0;
+  var trening_licznik = 0;
+  var trening_licznik2 = 0;
+  var trening_wskaz = 0;
+  var trening_str = ["Lubię biegać.", "Lubię jeść owoce.", "Mam wiele atutów.", "Często sprzątam.", "Można mnie nazwać śpiochem.", "Plansza kontrolna, naciśnij N."];
+  var trening_odp = ["T_Odp"];
+  var trening_RT = ["T_RT"]
+  var mainStart = 0;
+  var elem_naglowek = document.getElementById("naglowek");
+  var elem_mbuttons = document.getElementById("menu_buttons");
+  var elem_formularz = document.getElementById("formularz");
+  var elem_form_test = document.getElementById("formularz_test");
+  var elem_zapis_test = document.getElementById("zapis_test");
+  var elemLine = document.getElementById("line");
+
+
+  document.getElementById("zapis").style.visibility = 'hidden';
+  document.getElementById("zapis_test").style.visibility = 'hidden';
+  document.getElementById("formularz_test").style.visibility = 'hidden';
+  document.getElementById("buttons2").style.visibility = 'hidden';
+  document.getElementById("formularz").style.visibility = 'hidden';
+  document.getElementById("formularz2").style.visibility = 'hidden';
+  document.getElementById("formularz3").style.visibility = 'hidden';
+  document.getElementById("formularz4").style.visibility = 'hidden';
+  document.getElementById("formularz5").style.visibility = 'hidden';
+  document.getElementById("formularz6").style.visibility = 'hidden';
+  document.getElementById("formularz7").style.visibility = 'hidden';
+
+  hidden2();
+  version();
+
+
+  var var_imie;
+  var var_plec;
+  var var_wiek;
+  var var_zamieszkanie;
+  var var_kierunek;
+  var stosunek;
+  var var_rokstudiow;
+  var var_partner;
+  var var_papierosy;
+  var var_alkohol;
+  var var_wolontariat;
+  var var_ogladanie;
+  var var_gry;
+  var var_socialmedia;
+  var var_sport;
+  var var_zadowolenie;
+  var var_matura_jp;
+  var var_matura_jo;
+  var var_matura_mat;
+  var var_waga;
+  var var_wzrost;
+
+  var kod_test;
+  var kody = Math.floor(Math.random() * 10000) + 1;
+  var losowaneNumery;
+  var item_nr;
+
+
+  function version() {//układ pytań: A(123); B(132); C(213); D(231); E(312); F(321)
+    switch (wersja) {
+      case 1:
+        Zdania1 = lista1;
+        Zdania2 = lista2;
+        Zdania3 = lista2;
+        uklad = 'A123';
+        nrZestawuA = 1;
+        nrZestawuB = 2;
+        nrZestawuC = 3;
+        break;
+      case 2:
+        Zdania1 = lista1;
+        Zdania2 = lista2;
+        Zdania3 = lista2;
+        uklad = 'B132';
+        nrZestawuA = 1;
+        nrZestawuB = 3;
+        nrZestawuC = 2;
+        break;
+      case 3:
+        Zdania1 = lista2;
+        Zdania2 = lista1;
+        Zdania3 = lista2;
+        uklad = 'C213';
+        nrZestawuA = 2;
+        nrZestawuB = 1;
+        nrZestawuC = 3;
+        break;
+      case 4:
+        Zdania1 = lista2;
+        Zdania2 = lista2;
+        Zdania3 = lista1;
+        uklad = 'D231';
+        nrZestawuA = 2;
+        nrZestawuB = 3;
+        nrZestawuC = 1;
+        break;
+      case 5:
+        Zdania1 = lista2;
+        Zdania2 = lista1;
+        Zdania3 = lista2;
+        uklad = 'E312';
+        nrZestawuA = 3;
+        nrZestawuB = 1;
+        nrZestawuC = 2;
+        break;
+      case 6:
+        Zdania1 = lista2;
+        Zdania2 = lista2;
+        Zdania3 = lista1;
+        uklad = 'F321';
+        nrZestawuA = 3;
+        nrZestawuB = 2;
+        nrZestawuC = 1;
+    }
+  }
+
+  //START Instrukcja
+
+  function instr() {
+    document.activeElement.blur();
+    openFullscreen();
+
+//START wersja1
+    if (etap == 1) {
+      openFullscreen();
+
+      if (strona == 0) {
+        nrZestawu = nrZestawuA;
+        stop = 1084;
+        losowaneNumery = shuffle(numery1084);
+
+        elem_naglowek.remove();
+        elem_mbuttons.remove();
+
+        document.getElementById("spacja").style.visibility = 'visible';
+
+        document.getElementById("instrukcja").innerHTML = "Serdecznie witamy w badaniu naukowym prowadzonym przez Instytut Psychologii KUL.<br><br>Celem badań jest zdobycie wiedzy na temat czasowników używanych do opisu zachowań człowieka w języku polskim.<br><br> Poznanie tego, w jaki sposób ludzie posługują się czasownikami opisującymi człowieka, pozwoli nam lepiej zrozumieć cechy osobowości, których te czasowniki dotyczą.<br><br>Wszystkie udzielone odpowiedzi będą przetwarzane i analizowane w pełni anonimowo.";
+        strona++;
+      } else if (strona == 1) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Badanie, w którym uczestniczysz jest efektem pracy wielu osób na przestrzeni 4 lat. W rezultacie zidentyfikowaliśmy wszystkie czasowniki opisujące osobowość w języku polskim.<br><br><br>Wszystkie te słowa dla ułatwienia umieściliśmy w zdaniach i wszystkie znajdują się w tym badaniu";
+      } else if (strona == 2) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Nasz zespół prowadzi te i podobne badania nad językiem polskim. Zaś na całym świecie badacze koncentrują się na wielu innych językach. Razem dążymy do ustalenia struktury osobowości wspólnej dla wszystkich ludzi oraz tej wyjątkowej dla każdej kultury.<br><br>Bardzo zależy nam na rzetelnych odpowiedziach, ponieważ wpłyną one zarówno na wynik naszej pracy, jak i starań międzynarodowych.<br><br>Biorąc udział w tym badaniu przyczyniasz się do rozwoju światowej nauki.<br><br>Jesteśmy bardzo wdzięczni za pomoc w zrealizowaniu tego projektu.";
+      } else if (strona == 3) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "W trakcie badania będą wyświetlane zdania dotyczące różnych zachowań, z uwagi na które ludzie różnią się między sobą.<br><br>Zastanów się i oceń, w jakim stopniu dane zachowanie jest dla Ciebie charakterystyczne.<br><br>Odpowiedzi należy udzielać klikając w wybrany przycisk na sześciostopniowej skali, gdzie 1 oznacza, że podane zdanie w ogóle do Ciebie nie pasuje, natomiast 6 oznacza, że podane zdanie bardzo dobrze do Ciebie pasuje.";
+      } else if (strona == 4) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Jeżeli w zdaniu znajduje się słowo, którego nie znasz, albo nie rozumiesz sensu zdania, naciśnij klawisz N.";
+      } else if (strona == 5) {
+        strona++;
+        document.getElementById("instrukcja").style.textAlign = "justify";
+        document.getElementById("instrukcja").style.top = "1%";
+        document.getElementById("instrukcja").innerHTML = "Zdanie należy ocenić według następującej skali: <br><br>1 - bardzo nietrafne (to znaczy: zdanie w ogóle do mnie nie pasuje)<br><br>2 - nietrafne (zdanie do mnie nie pasuje)<br><br>3 - raczej nietrafne (zdanie raczej do mnie nie pasuje)<br><br>4 - raczej trafne (zdanie raczej do mnie pasuje)<br><br>5 - trafne (zdanie do mnie pasuje)<br><br>6 - bardzo trafne (zdanie bardzo dobrze do mnie pasuje)";
+      } else if (strona == 6) {
+        document.getElementById("instrukcja").style.textAlign = "center";
+        document.getElementById("instrukcja").style.top = "10%";
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Za chwilę rozpocznie się część treningowa. Jej celem jest przećwiczenie sposobu udzielania odpowiedzi.<br><br><br>Kliknij w wybraną odpowiedź (przycisk), żeby określić w jakim stopniu zdanie pasuje do Ciebie.<br><br>";
+      } else if (strona == 7) {
+        RT_timer();
+
+        document.getElementById("buttons").style.visibility = 'visible';
+        document.getElementById("instrukcja").style.visibility = 'hidden';
+
+        if (trening_licznik == 0) {
+          document.getElementById("demo").innerHTML = trening_str[trening_licznik2];
+          keyN_TXT();
+          trening_licznik = 1;
+          trening_licznik2++;
+        } else {
+          document.getElementById("buttons").style.visibility = 'hidden';
+          document.getElementById("demo").innerHTML = trening_wskaz;
+          spacja_TXT();
+          trening_licznik = 0;
+          trening_RT.push(reactionTime);
+          trening_odp.push(przycisk);
+
+          if (trening_licznik2 > 5) {
+            strona++;
+          }
+        }
+
+      } else if (strona == 8) {
+        document.getElementById("instrukcja").style.visibility = 'visible';
+        document.getElementById("demo").style.visibility = 'hidden';
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "We właściwym badaniu wybrana cyfra nie będzie wyświetlana.<br><br>Co około 10 minut (w zależności od Twojego tempa pracy) będzie pojawiać się plansza z informacją, że można zrobić przerwę.<br><br>Na samym dole ekranu znajdziesz też pasek postępu - stopniowo zapełnia się on pokazując,<br>w którym miejscu zadania aktualnie jesteś.";
+      } else if (strona == 9) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Pamiętaj, że nie należy przerywać ani wyłączać badania w trakcie - w takim wypadku postępy nie zostaną zapisane, a cała wcześniejsza praca zostanie utracona.";
+      } else if (strona == 10) {
+        document.getElementById("spacja").style.visibility = 'hidden';
+        document.getElementById("zapis_test").style.visibility = 'visible';
+        document.getElementById("formularz_test").style.visibility = 'hidden';
+        spacja_OFF = 1;
+        keyN_OFF = 1;
+        document.getElementById("instrukcja").innerHTML = "Na końcu każdej części pojawi się prośba o zapisanie wyników. Plik z wynikami należy zapisać w łatwo dostępnym miejscu (np. na pulpicie), tak żeby można było go bez problemu znaleźć po zakończeniu badania.<br /><br />Ponieważ różne przeglądarki zapisują pliki w różnych miejscach, kliknij w poniższy przycisk, żeby przetestować mechanizm zapisywania.<br /><br />Następnie zapisz plik w łatwo dostępnym dla Ciebie miejscu. Nie należy zmieniać nazwy pliku.";
+      } else if (strona == 11) {
+        closeFullscreen();
+        document.getElementById("zapis_test").style.visibility = 'hidden';
+        document.getElementById("formularz_test").style.visibility = 'visible';
+        document.getElementById("instrukcja").style.top = "1%";
+        document.getElementById("instrukcja").style.fontSize = "2.2vw";
+        document.getElementById("instrukcja").innerHTML = "Tryb pełnoekranowy został na chwilę wyłączony. <br /><br />W celu sprawdzenia poprawności zapisu otwórz plik klikając na niego dwukrotnie - jest to zwykły dokument tekstowy. Następnie wpisz w poniższym okienku kod zapisany w pliku. <br /><br />Niektóre przeglądarki nie pytają o wybranie miejsca zapisu pliku - w takim przypadku zazwyczaj pliku należy szukać w folderze Pobrane (Downloads) lub w Dokumenty (Documents). Można też spróbować wyszukać plik wpisująć w polu wyszukiwania jego nazwę, to jest: wyniki_test.txt<br /><br />Jeżeli nie możesz znaleźć pliku wpisz: 123 żeby spróbować ponownie.";
+      } else if (strona == 12) {
+
+        if (kod_test == kody) {
+          openFullscreen();
+          elem_zapis_test.remove();
+          elem_form_test.remove();
+          document.getElementById("spacja").style.visibility = 'visible';
+          document.getElementById("instrukcja").style.top = "10%";
+          document.getElementById("instrukcja").style.fontSize = "2.5vw";
+          spacja_TXT();
+          document.getElementById("instrukcja").innerHTML = "Podany kod jest prawidłowy. Możesz przejść do dalszej części badania.";
+          strona++;
+        } else if (kod_test == '123') {
+          strona = 10;
+          instr();
+        } else {
+          document.getElementById("formularz_test").style.visibility = 'hidden';
+          document.getElementById("instrukcja").innerHTML = "Podany kod jest nieprawidłowy.<br /><br /><br />Naciśnij spację, żeby spróbować jeszcze raz. <br /><br /><br />Jeżeli problem się powtarza zamknij to okno i skontaktuj się z osobą prowadzącą badanie.";
+          strona = 10;
+          spacja_TXT();
+        }
+
+
+      } else if (strona == 13) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Bardzo prosimy o uważne czytanie zdań i udzielanie rzetelnych, szczerych odpowiedzi. Tylko dzięki takim odpowiedziom będziemy w stanie poznać badane zjawisko.<br><br><br>Dodatkowo, po zakończeniu badania możesz odebrać swój indywidualny profil psychologiczny. Jego wiarygodność zależy wyłącznie od dokładności udzielonych przez Ciebie odpowiedzi.";
+      } else if (strona == 14) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Jeżeli masz jakiekolwiek wątpliwości lub podana instrukcja nie jest dla Ciebie jasna, naciśnij teraz klawisz ESC aby przerwać badanie, a następnie skontaktuj się z osobą prowadzącą badanie.<br><br><br>Jeżeli nie masz wątpliwości naciśnij spację, aby rozpocząć badanie.";
+      } else if (strona == 15) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Za chwilę zostanie wyświetlone pierwsze zdanie.<br><br><br><br><br>Powodzenia!";
+      } else if (strona == 16) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "  ";
+        document.getElementById("instrukcja").style.visibility = 'hidden';
+        keyN_TXT();
+        document.getElementById("demo").style.visibility = 'visible';
+        alert_bledu = 0;
+        mainStart = 1;
+        hidden();
+      } else if (strona == 7000) {
+        document.getElementById("spacja").style.visibility = 'hidden';
+        document.getElementById("demo").style.visibility = 'hidden';
+        document.getElementById("instrukcja").style.visibility = 'visible';
+        document.getElementById("instrukcja").innerHTML = "DZIĘKUJEMY ZA WYKONANIE TEJ CZĘŚCI BADANIA<br /><br />Po zakończeniu badania pamiętaj o zrobieniu minimum 30 minut przerwy zanim uruchomisz kolejną część. <br /><br />Żeby przejść do ostatniej planszy, naciśnij spację.";
+        strona++;
+      } else if (strona == 7001) {
+        document.getElementById("zapis").style.visibility = 'visible';
+        spacja_OFF = 1;
+        document.getElementById("instrukcja").innerHTML = "Kliknij w poniższy przycisk, żeby zapisać wyniki. <br /><br />Zostanie wyświetlone okno zapisu. Plik z wynikami należy zapisać w łatwo dostępnym miejscu (np. w folderze z tym programem lub na pulpicie).<br /><br /> Jest to niezbędne, żeby prawidłowo zapisać wyniki badania, inaczej cały postęp zostanie utracony. Po zakończeniu całego badania zapisane pliki należy przekazać  osobie prowadzącej.<br /><br /><br />Naciśnij teraz przycisk, żeby zapisać plik i zakończyć.";
+      } else {
+        keyN_TXT();
+      }
+    }
+
+//START wersja 2 i wersja3
+    if (etap > 1) {
+
+      if (strona == 0) {
+        elem_naglowek.remove();
+        elem_mbuttons.remove();
+        elem_zapis_test.remove();
+        elem_form_test.remove();
+        openFullscreen();
+        document.getElementById("spacja").style.visibility = 'visible';
+        losowaneNumery = numery50;
+
+        if (etap == 2) {
+          nrZestawu = nrZestawuB;
+
+          document.getElementById("instrukcja").innerHTML = "Serdecznie witamy w drugim etapie badań.<br /><br />W tej części Twoje zadanie jest analogiczne i ponownie polega na ustosunkowaniu się do prezentowanych stwierdzeń.<br /><br />Bardzo proszę o przeczytanie instrukcji znajdujących się na kolejnych planszach.";
+          strona++;
+        }
+
+        if (etap == 3) {
+          nrZestawu = nrZestawuC;
+
+          document.getElementById("instrukcja").innerHTML = "Serdecznie witamy w ostatnim etapie badań.<br /><br />Zadanie jest bezpośrednią kontynuacją poprzedniego i polega na udzielaniu odpowiedzi na kolejne pytania.<br /><br />Bardzo proszę o przeczytanie instrukcji znajdujących się na kolejnych planszach w celu przypomnienia sobie zasad badania.";
+          strona++;
+        }
+      } else if (strona == 1) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Na kolejnych planszach pojawią się zdania, opisujące różne zachowania, uczucia i myśli ludzi.<br>Zastanów się nad każdym z nich – w jakim stopniu opisuje ono również Ciebie takiego/taką, jakim/jaką zwykle jesteś?<br>Ludzie są bardzo różni, więc nie ma tu dobrych ani złych odpowiedzi. Za każdym razem po prostu szczerze odpowiedz na pytanie, w jakim stopniu dane stwierdzenie opisuje Ciebie.";
+      } else if (strona == 2) {
+        document.getElementById("instrukcja").style.textAlign = "justify";
+        document.getElementById("instrukcja").style.top = "1%";
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Zdanie należy ocenić według następującej skali: <br><br>1 – całkowicie nietrafnie mnie opisuje<br><br>2 – raczej nietrafnie mnie opisuje<br><br>3 – trochę trafnie, a trochę nietrafnie mnie opisuje<br><br>4 – raczej trafnie mnie opisuje<br><br>5 – całkowicie trafnie mnie opisuje";
+      } else if (strona == 3) {
+        document.getElementById("instrukcja").style.textAlign = "center";
+        document.getElementById("instrukcja").style.top = "10%";
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Na samym dole ekranu znajdziesz pasek postępu - stopniowo zapełnia się on pokazując, w którym miejscu zadania aktualnie jesteś.";
+      } else if (strona == 4) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Pamiętaj, że nie należy przerywać ani wyłączać badania w trakcie. <br /><br />W takim wypadku postępy nie zostaną zapisane, a cała wcześniejsza praca zostanie utracona.";
+      } else if (strona == 5) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "Bardzo prosimy o uważne czytanie zdań i udzielanie rzetelnych, szczerych odpowiedzi. Tylko dzięki takim odpowiedziom będziemy w stanie poznać badane zjawisko.<br><br>Jeżeli masz jakiekolwiek wątpliwości lub podana instrukcja nie jest dla Ciebie jasna, naciśnij teraz klawisz ESC aby przerwać badanie, a następnie skontaktuj się z osobą prowadzącą badanie.<br><br>Jeżeli nie masz wątpliwości naciśnij spację, aby rozpocząć badanie.";
+      } else if (strona == 6) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "<br /><br />Za chwilę zostanie wyświetlone pierwsze zdanie.<br><br><br><br><br>Powodzenia!";
+      } else if (strona == 7) {
+        strona++;
+        document.getElementById("instrukcja").innerHTML = "  ";
+        document.getElementById("instrukcja").style.visibility = 'hidden';
+        keyN_TXT();
+        document.getElementById("spacja").style.visibility = 'hidden';
+        document.getElementById("demo").style.visibility = 'visible';
+        mainStart = 1;
+        alert_bledu = 0;
+        hidden_e2();
+      } else if (strona == 7000) {
+        document.getElementById("demo").style.visibility = 'hidden';
+        document.getElementById("instrukcja").style.visibility = 'visible';
+        document.getElementById("instrukcja").innerHTML = "To już prawie koniec. Na kolejnych planszach zostanie wyświetlonych jeszcze kilka dodatkowych pytań dotyczących Twoich typowych zachowań.<br><br>Proszę, odpowiedz na nie szczerze, mając w pamięci, że badanie jest całkowicie anonimowe.<br><br><Żeby przejść dalej, naciśnij spację.";
+        strona++;
+      } else if (strona == 7001) {
+        spacja_OFF = 1;
+
+        document.getElementById("instrukcja").style.visibility = 'hidden';
+        document.getElementById("spacja").style.visibility = 'hidden';
+        document.getElementById("formularz").style.visibility = 'visible';
+      } else if (strona == 7002) {
+        document.getElementById("formularz").style.visibility = 'hidden';
+        document.getElementById("formularz2").style.visibility = 'visible';
+      } else if (strona == 7003) {
+        document.getElementById("formularz2").style.visibility = 'hidden';
+        document.getElementById("formularz3").style.visibility = 'visible';
+      } else if (strona == 7004) {
+        document.getElementById("formularz3").style.visibility = 'hidden';
+        document.getElementById("formularz4").style.visibility = 'visible';
+      } else if (strona == 7005) {
+        document.getElementById("formularz4").style.visibility = 'hidden';
+        document.getElementById("formularz5").style.visibility = 'visible';
+      } else if (strona == 7006) {
+        document.getElementById("formularz5").style.visibility = 'hidden';
+        document.getElementById("formularz6").style.visibility = 'visible';
+      } else if (strona == 7007) {
+        document.getElementById("formularz6").style.visibility = 'hidden';
+        document.getElementById("formularz7").style.visibility = 'visible';
+      } else if (strona == 7008) {
+        document.getElementById("formularz7").style.visibility = 'hidden';
+        document.getElementById("instrukcja").style.visibility = 'visible';
+        document.getElementById("instrukcja").innerHTML = "Kliknij w poniższy przycisk, żeby zapisać wyniki. <br /><br />Zostanie wyświetlone okno zapisu. Plik z wynikami należy zapisać w łatwo dostępnym miejscu (np. w folderze z tym programem lub na pulpicie).<br /><br /> Jest to niezbędne, żeby prawidłowo zapisać wyniki badania, inaczej cały postęp zostanie utracony. Po zakończeniu całego badania zapisane pliki należy przekazać  osobie prowadzącej.<br /><br /><br />Naciśnij teraz przycisk, żeby zapisać plik i zakończyć.";
+        document.getElementById("zapis").style.visibility = 'visible';
+      } else {
+        keyN_TXT();
+      }
+    }
+  }
+
+
+  //KONIEC Instrukcja
+
+  //START Blok główny MAIN
+  function main_start() {
+    openFullscreen();
+    nrZdania = losowaneNumery[licznik2];
+    wezyk_str = wezyk_str + przycisk;
+    kontrola_111 = wezyk_str.match(/1111111111|2222222222|3333333333|4444444444|5555555555|6666666666|nnnnnnnnnn/);
+    kontrola_123 = wezyk_str.match(/123456|654321|34343434343434343434|1212121212|2323232323|4545454545|5656565656|234565|345654|456543|565432|543212|432123|321234|212345/);
+    RT_timer();
+    document.activeElement.blur();
+
+    if (fullscr_OFF == 1) {
+      openFullscreen();
+    }
+
+  }
+
+  function main_if() {
+    openFullscreen();
+
+    if (etap == 1) {
+      if (licznik2 == stop) {
+        mainStart = 0;
+        strona = 7000;
+        spacja_OFF = 0;
+        keyN_OFF = 1;
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        instr();
+        hidden();
+      } else if (licznik == 185) {
+        licznik3++;
+        document.getElementById("demo").style.visibility = "hidden";
+        document.getElementById("instrukcja").style.visibility = "visible";
+        document.getElementById("instrukcja").innerHTML = "Koniec części " + licznik3 + " z 6.<br /><br />Teraz możesz chwilę odpocząć.<br/><br/><br/>Pamiętaj, żeby nie zamykać badania aż do ostatniej planszy - inaczej wyniki nie zostaną prawidłowo zapisane.<br/><br/><br/><br/>Naciśnij spację, żeby kontynuować badanie.";
+        spacja_TXT();
+        licznik = 0;
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        alert_bledu = 1;
+        hidden();
+        document.getElementById("spacja").style.visibility = "hidden";
+        fullscr_OFF = 1;
+        wezyk_str = 'a';
+      } else if (kontrola_111 > 0 || kontrola_111 == 'nnnnnnnnnn') {
+        document.getElementById("demo").style.visibility = "hidden";
+        document.getElementById("instrukcja").style.visibility = "visible";
+        document.getElementById("instrukcja").innerHTML = "Ta plansza została wyświetlona z powodu wykrycia nietypowego wzoru odpowiedzi.<br/>Taki efekt może być dziełem przypadku i występować losowo co pewien czas lub wynikać z nieuważnego odpowiadania.<br/><br/>Jeżeli odczuwasz zmęczenie lub znużenie odpocznij teraz chwilę.<br/><br/><br/>Bardzo zależy nam na uzyskaniu wiarygodnych wyników, dlatego serdecznie prosimy o dokładne czytanie zdań i udzielanie szczerych odpowiedzi.";
+        spacja_TXT();
+        wezyk_str = 'a';
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        bledy_typ.push(1);
+        bledy_nr.push(licznik2);
+        alert_bledu = 1;
+        hidden();
+      } else if (kontrola_123 > 0) {
+        document.getElementById("demo").style.visibility = "hidden";
+        document.getElementById("instrukcja").style.visibility = "visible";
+        document.getElementById("instrukcja").innerHTML = "Ta plansza została wyświetlona z powodu wykrycia nietypowego wzoru odpowiedzi.<br/>Taki efekt może być dziełem przypadku i występować losowo co pewien czas lub wynikać z nieuważnego odpowiadania.<br/><br/>Jeżeli odczuwasz zmęczenie lub znużenie odpocznij teraz chwilę.<br/><br/><br/>Bardzo zależy nam na uzyskaniu wiarygodnych wyników, dlatego serdecznie prosimy o dokładne czytanie zdań i udzielanie szczerych odpowiedzi.";
+        spacja_TXT();
+        wezyk_str = 'a';
+        bledy_typ.push(2);
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        bledy_nr.push(licznik2);
+        alert_bledu = 1;
+        hidden();
+      } else {
+        fullscr_OFF = 0;
+
+        if (spacja_press == 0) {
+          odpowiedz.push(przycisk);
+          czas.push(reactionTime);
+        } else {
+          spacja_press = 0;
+        }
+
+        document.getElementById("spacja").style.visibility = "visible";
+        document.getElementById("demo").style.visibility = "visible";
+        document.getElementById("instrukcja").style.visibility = "hidden";
+        document.getElementById("demo").innerHTML = Zdania[nrZdania];
+        itemy.push(Zdania[nrZdania]);
+        licznik++;
+        licznik2++;
+        pasek();
+      }
+    } else if (etap == 2) {
+      if (licznik2 == stop) {
+        mainStart = 0;
+        strona = 7000;
+        spacja_OFF = 0;
+        keyN_OFF = 1;
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        instr();
+        hidden_e2();
+      } else if (licznik == 185) {
+        licznik3++;
+        document.getElementById("demo").style.visibility = "hidden";
+        document.getElementById("instrukcja").style.visibility = "visible";
+        document.getElementById("instrukcja").innerHTML = "Koniec części " + licznik3 + " z 6.<br /><br />Teraz możesz chwilę odpocząć.<br/><br/><br/>Pamiętaj, żeby nie zamykać badania aż do ostatniej planszy - inaczej wyniki nie zostaną prawidłowo zapisane.<br/><br/><br/><br/>Naciśnij spację, żeby kontynuować badanie.";
+        spacja_TXT();
+        licznik = 0;
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        alert_bledu = 1;
+        hidden_e2();
+        document.getElementById("spacja").style.visibility = "hidden";
+        fullscr_OFF = 1;
+        wezyk_str = 'a';
+      } else if (kontrola_111 > 0 || kontrola_111 == 'nnnnnnnnnn') {
+        document.getElementById("demo").style.visibility = "hidden";
+        document.getElementById("instrukcja").style.visibility = "visible";
+        document.getElementById("instrukcja").innerHTML = "Ta plansza została wyświetlona z powodu wykrycia nietypowego wzoru odpowiedzi.<br/>Taki efekt może być dziełem przypadku i występować losowo co pewien czas lub wynikać z nieuważnego odpowiadania.<br/><br/>Jeżeli odczuwasz zmęczenie lub znużenie odpocznij teraz chwilę.<br/><br/><br/>Bardzo zależy nam na uzyskaniu wiarygodnych wyników, dlatego serdecznie prosimy o dokładne czytanie zdań i udzielanie szczerych odpowiedzi.";
+        spacja_TXT();
+        wezyk_str = 'a';
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        bledy_typ.push(1);
+        bledy_nr.push(licznik2);
+        alert_bledu = 1;
+        hidden_e2();
+      } else if (kontrola_123 > 0) {
+        document.getElementById("demo").style.visibility = "hidden";
+        document.getElementById("instrukcja").style.visibility = "visible";
+        document.getElementById("instrukcja").innerHTML = "Ta plansza została wyświetlona z powodu wykrycia nietypowego wzoru odpowiedzi.<br/>Taki efekt może być dziełem przypadku i występować losowo co pewien czas lub wynikać z nieuważnego odpowiadania.<br/><br/>Jeżeli odczuwasz zmęczenie lub znużenie odpocznij teraz chwilę.<br/><br/><br/>Bardzo zależy nam na uzyskaniu wiarygodnych wyników, dlatego serdecznie prosimy o dokładne czytanie zdań i udzielanie szczerych odpowiedzi.";
+        spacja_TXT();
+        wezyk_str = 'a';
+        bledy_typ.push(2);
+        odpowiedz.push(przycisk);
+        czas.push(reactionTime);
+        bledy_nr.push(licznik2);
+        alert_bledu = 1;
+        hidden_e2();
+      } else {
+        fullscr_OFF = 0;
+
+        if (spacja_press == 0) {
+          odpowiedz.push(przycisk);
+          czas.push(reactionTime);
+        } else {
+          spacja_press = 0;
+        }
+
+        document.getElementById("spacja").style.visibility = "visible";
+        document.getElementById("demo").style.visibility = "visible";
+        document.getElementById("instrukcja").style.visibility = "hidden";
+        document.getElementById("demo").innerHTML = Zdania[nrZdania];
+        itemy.push(Zdania[nrZdania]);
+        licznik++;
+        licznik2++;
+        pasek2();
+      }
+    }
+
+
+  }
+
+
+  //START przyciski wyboru odpowiedzi
+  function myFunction1() {
+    if (mainStart == 1) {
+      przycisk = 1;
+      main_start();
+      main_if();
+    } else {
+      przycisk = 1;
+      trening_wskaz = "Wybrana przez Ciebie wartość to:<br>1 - to zdanie jest bardzo nietrafne w stosunku do mnie";
+      instr();
+    }
+  }
+
+
+  function myFunction2() {
+    if (mainStart == 1) {
+      przycisk = 2;
+      main_start();
+      main_if();
+    } else {
+      przycisk = 2;
+      trening_wskaz = "Wybrana przez Ciebie wartość to:<br>2 - to zdanie jest nietrafne w stosunku do mnie";
+      instr();
+    }
+  }
+
+  function myFunction3() {
+    if (mainStart == 1) {
+      przycisk = 3;
+      main_start();
+      main_if();
+    } else {
+      przycisk = 3;
+      trening_wskaz = "Wybrana przez Ciebie wartość to:<br>3 - to zdanie jest raczej nietrafne w stosunku do mnie";
+      instr();
+    }
+  }
+
+  function myFunction4() {
+    if (mainStart == 1) {
+      przycisk = 4;
+      main_start();
+      main_if();
+    } else {
+      przycisk = 4;
+      trening_wskaz = "Wybrana przez Ciebie wartość to:<br>4 - to zdanie jest raczej trafne w stosunku do mnie";
+      instr();
+    }
+  }
+
+  function myFunction5() {
+    if (mainStart == 1) {
+      przycisk = 5;
+      main_start();
+      main_if();
+    } else {
+      przycisk = 5;
+      trening_wskaz = "Wybrana przez Ciebie wartość to:<br>5 - to zdanie jest trafne w stosunku do mnie";
+      instr();
+    }
+  }
+
+  function myFunction6() {
+    if (mainStart == 1) {
+      przycisk = 6;
+      main_start();
+      main_if();
+    } else {
+      przycisk = 6;
+      trening_wskaz = "Wybrana przez Ciebie wartość to:<br>6 - to zdanie jest bardzo trafne w stosunku do mnie";
+      instr();
+    }
+  }
+
+  function button_m1func() {
+    etap = 1;
+    instr();
+    Zdania = Zdania1;
+  }
+
+  function button_m2func() {
+    etap = 2;
+    instr();
+    Zdania = Zdania2;
+  }
+
+  function button_m3func() {
+    etap = 3;
+    instr();
+    Zdania = Zdania3;
+  }
+
+  function myFunction11() {
+    if (mainStart == 1) {
+      przycisk = 1;
+      main_start();
+      main_if();
+    }
+  }
+
+
+  function myFunction12() {
+    if (mainStart == 1) {
+      przycisk = 2;
+      main_start();
+      main_if();
+    }
+  }
+
+  function myFunction13() {
+    if (mainStart == 1) {
+      przycisk = 3;
+      main_start();
+      main_if();
+    }
+  }
+
+  function myFunction14() {
+    if (mainStart == 1) {
+      przycisk = 4;
+      main_start();
+      main_if();
+    }
+  }
+
+  function myFunction15() {
+    if (mainStart == 1) {
+      przycisk = 5;
+      main_start();
+      main_if();
+    }
+  }
+
+
+  document.body.onkeyup = function (key_n) {
+
+    if (key_n.keyCode == 78) {//klawisz N
+      if (etap == 1) {
+        if (keyN_OFF == 0) {
+          if (alert_bledu == 0) {
+            przycisk = 'n';
+            if (mainStart == 1) {
+              main_start();
+              main_if();
+            } else {
+              trening_wskaz = "Wciśnięto klawisz N - nieznane słowo lub niezrozumiałe zdanie.";
+              instr();
+            }
+          }
+        }
+      }
+    } else if (key_n.keyCode == 32) {//spacja
+      if (spacja_OFF == 0) {
+        alert_bledu = 0;
+
+        if (etap == 1) {
+          hidden();
+        } else {
+          hidden_e2();
+        }
+
+        spacja_press = 1;
+        instr();
+        if (mainStart == 1) {
+          main_start();
+          main_if();
+        }
+      }
+    }
+
+  }
+  //STOP przyciski wyboru
+
+  //document.getElementById("zatwierdz").addEventListener('click', submit_func);
+  //document.getElementById("").addEventListener('click', zapis_koncowy);
+
+  function zapis_koncowy() {
+    data_stop = new Date();
+    time_stop = Date.now();
+    myFunctionPLIK();
+    closeFullscreen();
+    if (etap < 2) {
+      document.getElementById("instrukcja").innerHTML = 'DZIĘKUJEMY ZA UDZIAŁ W TEJ CZĘŚCI BADANIA!<br /><br /><br />Zamknij tę stronę dopiero po upewnieniu się, że plik z wynikami został zapisany w łatwo dostępnym miejscu. <br /><br />Jeżeli nie możesz go znaleźć, kliknij na poniższy przycisk, żeby ponownie zapisać wyniki.';
+    } else {
+      document.getElementById("instrukcja").innerHTML = 'DZIĘKUJEMY ZA UDZIAŁ W BADANIU! <br /><br /><br />Zamknij tę stronę dopiero po upewnieniu się, że plik z wynikami został zapisany w łatwo dostępnym miejscu. <br /><br />Jeżeli nie możesz go znaleźć, kliknij na poniższy przycisk, żeby ponownie zapisać wyniki.';
+    }
+
+  }
+
+  function submit_func() {
+    var_imie = document.getElementById("fname").value;
+    var_plec = document.getElementById("sex").value;
+    var_wiek = document.getElementById("age").value;
+    var_zamieszkanie = document.getElementById("zamieszkanie").value;
+    var_kierunek = document.getElementById("kierunek").value;
+    var_rokstudiow = document.getElementById("rok_studiow").value;
+    strona++;
+    instr();
+  }
+
+  function submit_func2() {
+    var_partner = document.getElementById("partner").value;
+    var_papierosy = document.getElementById("papierosy").value;
+    var_alkohol = document.getElementById("alkohol").value;
+    var_wolontariat = document.getElementById("wolontariat").value;
+    strona++;
+    instr();
+  }
+
+  function submit_func3() {
+    var_ogladanie = document.getElementById("ogladanie").value;
+    var_gry = document.getElementById("gry").value;
+    var_socialmedia = document.getElementById("socialmedia").value;
+    strona++;
+    instr();
+  }
+
+  function submit_func4() {
+    var_sport = document.getElementById("sport").value;
+    strona++;
+    instr();
+  }
+
+  function submit_func5() {
+
+    var ele = document.getElementsByName('zadowolenie');
+
+    for (i = 0; i < ele.length; i++) {
+      if (ele[i].checked)
+        var_zadowolenie = ele[i].value;
+    }
+
+    strona++;
+    instr();
+  }
+
+  function submit_func6() {
+    var_matura_jp = document.getElementById("matura_jp").value;
+    var_matura_jo = document.getElementById("matura_jo").value;
+    var_matura_mat = document.getElementById("matura_mat").value;
+    strona++;
+    instr();
+  }
+
+  function submit_func7() {
+    var_waga = document.getElementById("waga").value;
+    var_wzrost = document.getElementById("wzrost").value;
+    strona++;
+    instr();
+  }
+
+  function submit_test() {
+    kod_test = document.getElementById("kod").value;
+    strona++;
+    instr();
+  }
+
+
+  function RT_timer() {
+    clickedTime = Date.now();
+    reactionTime = (clickedTime - createdTime) / 1000;
+//document.getElementById("printReactionTime").innerHTML="Your Reaction Time is: " + reactionTime + "seconds";
+    createdTime = Date.now();
+  }
+
+  function spacja_TXT() {
+    document.getElementById("spacja").innerHTML = 'Naciśnij spację, żeby kontynuować';
+    document.getElementById("spacja").style.fontSize = "2vw";
+    spacja_OFF = 0;
+    keyN_OFF = 1;
+  }
+
+
+  function keyN_TXT() {
+    if (etap == 1) {
+      document.getElementById("spacja").innerHTML = 'Naciśnij "N", jeżeli nieznane';
+      document.getElementById("spacja").style.fontSize = "1.2vw";
+      spacja_OFF = 1;
+      keyN_OFF = 0;
+    } else {
+      document.getElementById("spacja").innerHTML = ' ';
+      document.getElementById("spacja").style.fontSize = "1.2vw";
+      spacja_OFF = 1;
+      keyN_OFF = 0;
+    }
+  }
+
+  function hidden() {
+    if (alert_bledu == 1 || mainStart == 0) {
+      document.getElementById("buttons").style.visibility = 'hidden';
+      ;
+      document.getElementById("line_div").style.visibility = 'hidden';
+    } else {
+      document.getElementById("buttons").style.visibility = 'visible';
+      document.getElementById("line_div").style.visibility = 'visible';
+    }
+  }
+
+
+  function hidden_e2() {
+    if (alert_bledu == 1 || mainStart == 0) {
+      document.getElementById("buttons").style.visibility = 'hidden';
+      document.getElementById("buttons2").style.visibility = 'hidden';
+      ;
+      document.getElementById("line_div").style.visibility = 'hidden';
+    } else {
+      document.getElementById("buttons").style.visibility = 'hidden';
+      document.getElementById("buttons2").style.visibility = 'visible';
+      document.getElementById("line_div").style.visibility = 'visible';
+    }
+  }
+
+  function hidden2() {
+    document.getElementById("buttons").style.visibility = 'hidden';
+    document.getElementById("line_div").style.visibility = 'hidden';
+    document.getElementById("spacja").style.visibility = 'hidden';
+    document.getElementById("formularz").style.visibility = 'hidden';
+  }
+
+  //START Pasek postępu
+
+  function pasek() {
+    kreska = kreska + 0.092;
+    elemLine.style.width = kreska + "%";
+  }
+
+  function pasek2() {
+    kreska = kreska + 2;
+    elemLine.style.width = kreska + "%";
+  }
+
+  //KONIEC Pasek postępu
+
+
+  //START Zapis do pliku działający, nie IE; można dodać do każdego przycisku jako funkcja();
+
+  function myFunctionPLIK() {
+
+
+    var timeall = (time_stop - time_start) / 1000;
+    if (etap == 1) {
+      var myBlob = new Blob([JSON.stringify([self_peer, ver, uklad, "Etap", etap, "Lista", nrZestawu, data_start, data_stop, "Czas_badania", timeall, "Nr itemu", losowaneNumery, "Itemy", itemy, "RT", czas, "Odpowiedzi", odpowiedz, "Błędy", bledy_typ, "Błąd_nr", bledy_nr, trening_odp, trening_RT], null, 1)], {type: 'application/json'});
+    } else {
+      var myBlob = new Blob([JSON.stringify([self_peer, ver, uklad, "Etap", etap, "Lista", nrZestawu, data_start, data_stop, "Czas_badania", timeall, "Imię", var_imie, "Płeć", var_plec, "Wiek", var_wiek, "Zamieszkanie", var_zamieszkanie, "Kierunek", var_kierunek, "Rok", var_rokstudiow, "Partner", var_partner, "Palenie", var_papierosy, "Alkohol", var_alkohol, "Wolontariat", var_wolontariat, "seriale", var_ogladanie, "gry", var_gry, "Socialmedia", var_socialmedia, "Sport", var_sport, "Zadowolenie", var_zadowolenie, "Język_Polski", var_matura_jp, "Język_Obcy", var_matura_jo, "Matematyka", var_matura_mat, "Waga", var_waga, "wzrost", var_wzrost, "Nr itemu", losowaneNumery, "Itemy", itemy, "RT", czas, "Odpowiedzi", odpowiedz, "Błędy", bledy_typ, "Błąd_nr", bledy_nr], null, 1)], {type: 'application/json'});
+    }
+
+    var blobUrl = URL.createObjectURL(myBlob);
+
+    var link = document.getElementById("zapis");
+
+    link.href = blobUrl;
+    link.download = "Wyniki_czesc_" + etap + ".wyn";
+
+// var link = document.createElement("a");
+// link.href = blobUrl;
+// link.download = "wynik111.txt";
+// link.innerHTML = "Kliknij tutaj, że zapisać wynik";
+// document.body.appendChild(link);
+  }
+
+  //KONIEC Zapis do pliku
+
+  //START zapis do pliku testowy
+  function myFunctionTEST() {
+    strona++;
+    instr();
+    var kod = "KOD: " + kody;
+
+    var myBlob_test = new Blob([JSON.stringify(kod, null, 1)], {type: 'application/json'});
+    var blobUrl_test = URL.createObjectURL(myBlob_test);
+
+    var link_test = document.getElementById("zapis_test");
+    link_test.href = blobUrl_test;
+    link_test.download = "wyniki_test.txt";
+  }
+
+  //KONIEC zapis do pliku testowy
+
+  //START Pełny ekran
+  var elem = document.documentElement;
+
+  function openFullscreen() {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+  }
+
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { /* Firefox */
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE/Edge */
+      document.msExitFullscreen();
+    }
+  }
+
+  //KONIEC Pełny ekran
+
+
+  //START skrypt czas reakcji
+  // var clickedTime;
+  // var createdTime;
+  // var reactionTime;
+  //
+  // document.getElementById("kliknij").onclick=function() {
+  //
+  // clickedTime=Date.now();
+  //
+  // reactionTime=(clickedTime-createdTime)/1000;
+  // document.getElementById("printReactionTime").innerHTML="Your Reaction Time is: " + reactionTime + "seconds";
+  // createdTime=Date.now();
+  //
+  // }
+  //KONIEC skrypt czas reakcji
+
+</script>
+
+
+</body>
+</html>
