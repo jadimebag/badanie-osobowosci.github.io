@@ -1,0 +1,1 @@
+# badanie-osobowosci.github.io
